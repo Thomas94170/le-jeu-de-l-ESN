@@ -127,6 +127,17 @@
             <span class="text-2xl">💀</span>
           </div>
         </button>
+
+        <button onclick="startGame(18, 'vecu')" class="w-full text-left border-4 border-black bg-[#fef08a] p-4 shadow-brutal hover:bg-yellow-300 transition active:translate-x-1 active:translate-y-1 group rounded-lg">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-xs bg-black text-white border-2 border-black font-mono-code font-bold px-2 py-0.5 rounded">100% VÉCU (18 anecdotes)</span>
+              <h3 class="font-bold text-lg mt-1 group-hover:text-black">Le Musée des Horreurs ESN</h3>
+              <p class="text-xs text-slate-700">Java = JS, C orienté objet, test sur feuille A4 à Opéra, marge à 100% et plaque de cuisson allumée.</p>
+            </div>
+            <span class="text-2xl">🔥</span>
+          </div>
+        </button>
       </div>
     </div>
 
@@ -177,7 +188,10 @@
         </div>
 
         <!-- Question posée -->
-        <div class="min-h-[100px] flex items-center justify-center text-center py-2">
+        <div class="min-h-[100px] flex flex-col items-center justify-center text-center py-2 gap-2">
+          <span id="real-story-badge" class="hidden bg-amber-200 border-2 border-black text-[11px] font-mono-code font-bold px-2.5 py-0.5 rounded uppercase tracking-wider">
+            📌 Anecdote 100% Vécue
+          </span>
           <p id="question-text" class="text-lg md:text-xl font-bold text-slate-900 leading-snug">
             Question en attente...
           </p>
@@ -282,7 +296,10 @@
       { name: "Clémence, 'Chief People & Happiness Evangelist'", punch: "« Notre culture d'entreprise c'est zéro bullshit et pizzas offertes ! »", avatar: "👩‍💼" },
       { name: "Thibault, 'Senior Key Account Disruptor'", punch: "« C'est pour un grand compte du CAC40, la visibilité est folle ! »", avatar: "🧔" },
       { name: "Aurélien, 'Global Talent Matcher'", punch: "« On marge à seulement 8%, on est presque des bénévoles ! »", avatar: "🤵" },
-      { name: "Jessica, 'Lead Tech Recruiter 3.0'", punch: "« Le client adore ton énergie, il veut juste aligner les budgets ! »", avatar: "👩‍🦰" }
+      { name: "Jessica, 'Lead Tech Recruiter 3.0'", punch: "« Le client adore ton énergie, il veut juste aligner les budgets ! »", avatar: "👩‍🦰" },
+      { name: "Kévin, 'Ingénieur d'Affaires Senior (promo 2024)'", punch: "« Java ou JavaScript, l'important c'est le mindset ! »", avatar: "🕺" },
+      { name: "Ségolène, 'Talent Evaluator @ Opéra'", punch: "« Posez ce téléphone, vous avez 3 heures sur feuille A4. »", avatar: "🕵️‍♀️" },
+      { name: "Gonzague, 'Directeur d'Agence Régie & Souk'", punch: "« Vous faites comme vous voulez, mais vous êtes là samedi et dimanche. »", avatar: "🦈" }
     ];
 
     // --- BANQUE DE QUESTIONS PIÈGES ---
@@ -514,6 +531,339 @@
           outcome: "Intégrité brute 🏆",
           feedback: "Tu refuses de falsifier ton historique. Le client apprécie ton honnêteté et te prend quand même."
         }
+      },
+      // --- ANECDOTES 100% VÉCUES ---
+      {
+        realStory: true,
+        q: "« Tu as fait du JavaScript ? Parfait, je t'ai vendu comme Expert Java J2EE chez ce grand compte. Java, JavaScript, c'est la même chose non ? »",
+        yes: {
+          label: "Accepter le malentendu",
+          tjm: 0,
+          dignity: -20,
+          outcome: "10 mois de placard doré ☕",
+          feedback: "Tu passes 10 mois à « faire du Java » sans que le client te donne de vraies tâches. Payé à fixer ton IDE, ton cerveau fond doucement."
+        },
+        no: {
+          label: "Expliquer la différence",
+          tjm: +15,
+          dignity: +15,
+          outcome: "Cours d'informatique gratuit 📚",
+          feedback: "Tu lui expliques que Java et JavaScript ont autant en commun que Carpe et Carpette. Il hoche la tête sans comprendre."
+        }
+      },
+      {
+        realStory: true,
+        q: "RDV client : un commercial que tu vois pour la 1ère fois fait tout l'entretien à ta place sans te laisser placer un mot et te vend comme 'Expert' pour 3 semaines commando sur une techno inconnue.",
+        yes: {
+          label: "Sourire en silence",
+          tjm: +30,
+          dignity: -35,
+          outcome: "Syndrome du trottoir 👠",
+          feedback: "Tu n'as pas placé une syllabe. Tu es pris pour 3 semaines sur un outil jamais ouvert de ta vie, avec la sensation d'avoir été vendu à la découpe."
+        },
+        no: {
+          label: "Couper le commercial",
+          tjm: 0,
+          dignity: +20,
+          instantDeathProb: 0.25,
+          deathReason: "BLACKLISTÉ SUR PLACE : Le commercial t'a incendié sur le parking du client pour avoir 'ruiné son pitch de vente'.",
+          outcome: "Sabotage du baratin 🎤",
+          feedback: "Tu reprends la parole devant le client médusé. Le commercial transpire à grosses gouttes dans son costume Celio."
+        }
+      },
+      {
+        realStory: true,
+        q: "À la machine à café, le CTO du client te félicite : « Au fait, j'ai validé +70€ HT/j d'augmentation pour toi avec ton ESN il y a 3 mois ! » Ta commerciale ne t'a jamais rien reversé.",
+        yes: {
+          label: "Laisser couler",
+          tjm: -50,
+          dignity: -35,
+          outcome: "100% du pactole avalé 🍽️",
+          feedback: "L'ESN a englouti l'intégralité de ton augmentation en douce. La commerciale te remercie chaleureusement pour sa prime de fin d'année."
+        },
+        no: {
+          label: "Mettre l'ESN face au client",
+          tjm: +70,
+          dignity: +25,
+          outcome: "Rétrocession forcée 💥",
+          feedback: "Coincée entre le CTO furieux et toi, la commerciale invoque un « bug du logiciel de paie » et lâche les +70€/j."
+        }
+      },
+      {
+        realStory: true,
+        q: "Tu découvres dans les budgets du client que l'ESN prend 30% de marge sur ton dos (au lieu des 12% du marché). Le CTO menace de débaucher toute l'équipe ailleurs, mais l'ESN refuse de baisser sa part !",
+        yes: {
+          label: "Subir les 30% de racket",
+          tjm: -80,
+          dignity: -30,
+          outcome: "Pigeon Premium 💸",
+          feedback: "L'ESN ne sert littéralement qu'à signer un PDF par an et empoche presque un tiers de ta facturation."
+        },
+        no: {
+          label: "Négocier en direct avec le client",
+          tjm: +90,
+          dignity: +25,
+          outcome: "Chouinage de l'ESN 😭",
+          feedback: "Vous vous arrangez directement avec le client final. L'ESN vient baver dans les bureaux : « C'est pas juste, vous vous arrangez entre vous ! »"
+        }
+      },
+      {
+        realStory: true,
+        q: "« Pour rassurer le client et prouver ta motivation sur le projet, on leur offre ta première semaine de mission en gratuité totale. Tu joues le jeu ? »",
+        yes: {
+          label: "Offrir 1 semaine gratuite",
+          tjm: -60,
+          dignity: -30,
+          outcome: "Bénévole du CAC40 🎁",
+          feedback: "Tu bosses 5 jours gratuitement. Bizarrement, le loyer de ton appart et le leasing BMW du commercial n'étaient pas gratuits cette semaine-là."
+        },
+        no: {
+          label: "Zéro travail gratuit",
+          tjm: +20,
+          dignity: +15,
+          outcome: "Tout travail mérite TJM 🛑",
+          feedback: "Tu demandes si la boulangère offre aussi ses baguettes la première semaine pour prouver la qualité de sa farine."
+        }
+      },
+      {
+        realStory: true,
+        q: "Bureaux à Opéra : après 30 min d'attente, une RH te confisque ton portable, te pose devant une feuille A4 et te donne 3h pour écrire un algo de tri au stylo et répondre à « Qu'est-ce qu'une base de données ? ».",
+        yes: {
+          label: "Plier la feuille en 10 min",
+          tjm: +10,
+          dignity: -10,
+          outcome: "Speedrun papier A4 ✍️",
+          feedback: "En 10 minutes chrono c'est plié. La RH panique en croyant que tu rends copie blanche, puis bugue devant ton tri rapide écrit au Bic 4 couleurs."
+        },
+        no: {
+          label: "Refuser l'examen de 6ème",
+          tjm: 0,
+          dignity: +20,
+          outcome: "Fierté d'ingénieur 🚪",
+          feedback: "Tu récupères ton téléphone et demandes s'il faut aussi faire signer un mot dans le carnet de correspondance par tes parents."
+        }
+      },
+      {
+        realStory: true,
+        q: "Après 10 min de dialogue de sourds où l'Ingénieur d'Affaires ne comprend rien à tes réponses techniques, il décrète : « Tu seras parfait pour faire de la Cybersécurité ! » (domaine que tu détestes).",
+        yes: {
+          label: "Accepter la Cyber par dépit",
+          tjm: -40,
+          dignity: -30,
+          outcome: "Punition SOC à 3h du mat' 🔒",
+          feedback: "Te voilà coincé à surveiller des pare-feux dans un sous-sol alors que tu voulais juste coder des applis web."
+        },
+        no: {
+          label: "Dire que tu n'aimes pas la Cyber",
+          tjm: 0,
+          dignity: +20,
+          instantDeathProb: 0.3,
+          deathReason: "MIS À LA PORTE : L'Ingénieur d'Affaires s'est énervé (« Faut pas faire la fine bouche quand on débute ! ») et t'a littéralement foutu dehors.",
+          outcome: "Fine bouche assumée 😤",
+          feedback: "Il s'énerve rouge pivoine : « On ne fait pas la fine bouche quand on débute ! » et te raccompagne sèchement vers la sortie. Mais tu as évité l'enfer."
+        }
+      },
+      {
+        realStory: true,
+        q: "On te vend une mission 'C embarqué pour la fusée Ariane' (tu fais du Python/Java) à « moins d'1h en transports ». Pendant que le BM cherche son directeur, Google Maps affiche 3h aller simple.",
+        yes: {
+          label: "Signer pour 6h de RER / jour",
+          tjm: -50,
+          dignity: -35,
+          outcome: "Orbostationnaire dans le RER 🚀",
+          feedback: "La fusée Ariane va dans l'espace, mais toi tu passes 30 heures par semaine dans les transiliens en codant des pointeurs C qui crashent."
+        },
+        no: {
+          label: "Fuir : « Ma plaque de cuisson ! »",
+          tjm: 0,
+          dignity: +15,
+          outcome: "Évasion d'urgence 🍳",
+          feedback: "Tu croises le BM dans le couloir en t'enfuyant et bégaies que tu as oublié d'éteindre ta plaque de cuisson. Il n'a même pas essayé de te rappeler."
+        }
+      },
+      {
+        realStory: true,
+        q: "Une commerciale essaie de te vendre une mission en « C orienté objet ». Quand tu lui dis qu'il n'y a pas d'objets en C, elle cafouille et appelle au secours un autre commercial qui passait dans le couloir.",
+        yes: {
+          label: "Hocher la tête devant le duo",
+          tjm: -20,
+          dignity: -25,
+          outcome: "Bullshit quantique 🤡",
+          feedback: "À eux deux, ils t'expliquent que « c'est un terme utilisé dans un autre contexte métier ». Tu signes pour maintenir du vieux C89 plein de `goto`."
+        },
+        no: {
+          label: "Leur offrir le K&R de 1978",
+          tjm: +20,
+          dignity: +20,
+          outcome: "Double KO technique 🥊",
+          feedback: "Les deux commerciaux rament en tandem devant ton regard impassible avant de changer brusquement de sujet sur la météo."
+        }
+      },
+      {
+        realStory: true,
+        q: "Vendredi 18h30 à l'agence. Le directeur commercial passe dans l'open-space après un entretien annuel à +1,5% où un collègue est sorti en pleurant : « Vous faites comme vous voulez, mais vous êtes là samedi et dimanche ! »",
+        yes: {
+          label: "Venir bosser tout le week-end",
+          tjm: -60,
+          dignity: -40,
+          outcome: "Paillasson certifié ISO-9001 🧹",
+          feedback: "Tu sacrifies ton week-end sans heures sup'. Le lundi, le directeur commercial ne te dit même pas bonjour."
+        },
+        no: {
+          label: "Partir à 18h31 pile",
+          tjm: +10,
+          dignity: +25,
+          outcome: "Week-end sacré 🍻",
+          feedback: "Tu as effectivement « fait comme tu voulais » : tu es allé boire des pintes pendant que son tableau Excel prenait feu."
+        }
+      },
+      {
+        realStory: true,
+        q: "En plein open-space, le directeur commercial se moque publiquement d'un développeur qui vient de poser un RTT pour aller voir sa grand-mère malade à l'hôpital.",
+        yes: {
+          label: "Baisser les yeux sur ton clavier",
+          tjm: 0,
+          dignity: -35,
+          outcome: "Ambiance toxique maximale ☣️",
+          feedback: "La honte envahit le plateau. Tu réalises que chez eux, « l'humain au cœur du projet » s'arrête dès qu'il faut poser une journée."
+        },
+        no: {
+          label: "Le recadrer devant tout le plateau",
+          tjm: 0,
+          dignity: +30,
+          instantDeathProb: 0.2,
+          deathReason: "FIN DE MISSION IMMÉDIATE : Le directeur commercial a mis fin à ton contrat pour 'incompatibilité d'humeur avec les valeurs du groupe'.",
+          outcome: "Respect éternel de l'équipe 🫡",
+          feedback: "Un silence glacial tombe sur l'open-space. Le directeur bredouille que « c'était de l'humour » et s'enferme dans son bureau."
+        }
+      },
+      {
+        realStory: true,
+        q: "En entretien pour du Golang, le commercial te prend de haut : « Il faudrait songer à se spécialiser, on n'est pas à la fac ! ». 2 min plus tard : « Bon, on n'a pas de client en Go... tu sais faire du Java aussi ? »",
+        yes: {
+          label: "Accepter son Java sans rire",
+          tjm: -30,
+          dignity: -20,
+          outcome: "Spécialiste à géométrie variable 🎭",
+          feedback: "Quand ça l'arrange, la polyvalence redevient soudainement la plus grande qualité du siècle."
+        },
+        no: {
+          label: "Éclater de rire devant lui",
+          tjm: +25,
+          dignity: +25,
+          outcome: "Karma instantané 😂",
+          feedback: "Tu ris aux éclats en lui rappelant sa phrase d'il y a 120 secondes. Il beaucoup moins ri, mais il a arrêté de faire le malin."
+        }
+      },
+      {
+        realStory: true,
+        q: "Avant de signer, le commercial pleure sur le « budget ultra serré du client » et te verrouille à 430€/j. Le premier jour, tu vois passer le bon de commande : l'ESN te facture 890€/j (+107% de marge) !",
+        yes: {
+          label: "Encaisser la pilule à 430€",
+          tjm: -120,
+          dignity: -35,
+          outcome: "Braquage à 100% de marge 🏦",
+          feedback: "Tu touches 430€ pendant que l'ESN encaisse 460€/jour nets sur ton dos juste pour émettre une facture mensuelle."
+        },
+        no: {
+          label: "Exiger la moitié de la marge ou partir",
+          tjm: +110,
+          dignity: +25,
+          outcome: "Renégociation au bazooka 💣",
+          feedback: "Terrorisé à l'idée de perdre ses 460€/jour de rente passive, le commercial accepte de monter ton TJM en urgence."
+        }
+      },
+      {
+        realStory: true,
+        q: "Tu annonces ton départ dans les règles (mail + face-à-face). Le dernier mois, l'ESN feint l'amnésie (« On n'était pas au courant ! »), prend ta dernière facture en otage et réclame des pénalités de préavis !",
+        yes: {
+          label: "Céder au chantage",
+          tjm: -100,
+          dignity: -40,
+          outcome: "Rançonné par l'ESN 🏴‍☠️",
+          feedback: "Ils gardent un mois de ton chiffre d'affaires. Le brigandage sur grand chemin a simplement troqué le fusil contre un service juridique."
+        },
+        no: {
+          label: "Mise en demeure + copie des mails",
+          tjm: +30,
+          dignity: +20,
+          outcome: "Preuves horodatées ⚖️",
+          feedback: "Tu ressors les accusés de réception et une injonction de payer au Tribunal de Commerce. Le virement arrive en 24h chrono."
+        }
+      },
+      {
+        realStory: true,
+        q: "On t'a vendu une mission Front-End, mais tu fais 100% de Back-End depuis 5 mois. Quand tu annonces vouloir partir, le commercial menace : « Si tu pars maintenant, je te blackliste de notre ESN à vie ! »",
+        yes: {
+          label: "Rester par peur du blacklistage",
+          tjm: -30,
+          dignity: -30,
+          outcome: "Prisonnier du Back-End ⛓️",
+          feedback: "Tu restes à faire du SQL obscur de peur d'être banni d'une boîte qui te ment déjà sur tes missions."
+        },
+        no: {
+          label: "« Menace-moi pas avec du bon temps ! »",
+          tjm: +20,
+          dignity: +25,
+          outcome: "Blacklisté avec bonheur 🥂",
+          feedback: "Être banni à vie d'un marchand de viande qui vend du faux Front ? C'est la plus belle promesse qu'on t'ait faite cette année."
+        }
+      },
+      {
+        realStory: true,
+        q: "1er entretien ESN : accord oral sur un TJM de 600€. Une fois que le client final t'a sélectionné, l'ESN t'envoie le contrat à 400€/j : « Mais enfin, on s'était mis d'accord sur 400€ ! » (et tu n'as pas d'écrit).",
+        yes: {
+          label: "Signer à 400€ (-200€/j)",
+          tjm: -200,
+          dignity: -40,
+          outcome: "Bait & Switch magistral 🪝",
+          feedback: "Sans trace écrite par mail, tu viens de perdre 4 000€ par mois sur un coup de bluff de poker menteur."
+        },
+        no: {
+          label: "Refuser de signer sous 600€",
+          tjm: +20,
+          dignity: +25,
+          outcome: "Bluff contré au bord du gouffre 🃏",
+          feedback: "Le client t'attend lundi matin : le commercial panique à l'idée de passer pour un guignol auprès du client et remet 600€ sur le contrat."
+        }
+      },
+      {
+        realStory: true,
+        q: "Positionné par 2 ESN (A et B) chez le même client dans 2 départements, tu es pris aux deux ! Tu choisis A et refuses B. Furieux, le commercial de B appelle le directeur chez le client pour saboter ton recrutement !",
+        yes: {
+          label: "Subir le sabotage en silence",
+          tjm: -70,
+          dignity: -25,
+          instantDeathProb: 0.35,
+          deathReason: "MISSION SABOTÉE : Le commercial de l'ESN B a tellement bavé auprès de la direction que le client a annulé les deux postes pour éviter les embrouilles.",
+          outcome: "Mafia des marchands de tapis 🔪",
+          feedback: "Si lui ne touche pas sa commission sur ton dos, personne ne l'aura. Le niveau de mesquinerie dépasse l'entendement."
+        },
+        no: {
+          label: "Dénoncer la manœuvre au client",
+          tjm: +40,
+          dignity: +20,
+          outcome: "ESN B déréférencée par le client 🔥",
+          feedback: "Le directeur du département déteste qu'un commercial externe lui dicte ses recrutements : il te garde avec l'ESN A et blackliste l'ESN B !"
+        }
+      },
+      {
+        realStory: true,
+        q: "Un recruteur d'ESN t'appelle : « C'est quoi ton TJM ? ». Tu réponds : « 550€ ». Il te répond du tac au tac : « 450€ », sans un argument, comme au souk.",
+        yes: {
+          label: "Accepter à 450€ avec le thé à la menthe",
+          tjm: -100,
+          dignity: -25,
+          outcome: "Tapis bradé au souk 🏺",
+          feedback: "Tu viens de perdre 100€/jour en 2 secondes de négociation. Il regrette presque de ne pas avoir tenté 320€."
+        },
+        no: {
+          label: "Répondre « 650€ » et raccrocher",
+          tjm: +50,
+          dignity: +20,
+          outcome: "Contre-enchère sauvage 📈",
+          feedback: "À chaque fois qu'il enlève 100€, tu rajoutes 100€. Il bégaye que « ça marche pas comme ça » avant d'entendre la tonalité."
+        }
       }
     ];
 
@@ -544,10 +894,15 @@
       if (diffKey === 'junior') state.tjm = 550;
       else if (diffKey === 'confirme') state.tjm = 650;
       else if (diffKey === 'senior') state.tjm = 850;
+      else if (diffKey === 'vecu') state.tjm = 600;
 
-      // Mélange aléatoire des questions
-      const shuffled = [...QUESTIONS_POOL].sort(() => 0.5 - Math.random());
-      state.questions = shuffled.slice(0, numQuestions);
+      // Mélange aléatoire des questions (ou 100% anecdotes vécues pour le mode 'vecu')
+      const sourcePool = diffKey === 'vecu'
+        ? QUESTIONS_POOL.filter(q => q.realStory)
+        : QUESTIONS_POOL;
+      const shuffled = [...sourcePool].sort(() => 0.5 - Math.random());
+      state.questions = shuffled.slice(0, Math.min(numQuestions, shuffled.length));
+      state.totalQuestions = state.questions.length;
 
       // Transition d'écran
       document.getElementById('screen-home').classList.add('hidden');
@@ -571,12 +926,20 @@
       document.getElementById('bm-punchline').textContent = bm.punch;
       document.getElementById('commercial-badge').textContent = `BM : ${bm.name.split(',')[0]}`;
 
+      // Badge anecdote vécue
+      const realBadge = document.getElementById('real-story-badge');
+      if (q.realStory) {
+        realBadge.classList.remove('hidden');
+      } else {
+        realBadge.classList.add('hidden');
+      }
+
       // Question texte
       document.getElementById('question-text').textContent = q.q;
 
-      // Boutons labels
-      document.getElementById('btn-choice-1-label').textContent = "OUI (J'accepte)";
-      document.getElementById('btn-choice-2-label').textContent = "NON (Hors de question)";
+      // Boutons labels personnalisés ou par défaut
+      document.getElementById('btn-choice-1-label').textContent = q.yes.label || "OUI (J'accepte)";
+      document.getElementById('btn-choice-2-label').textContent = q.no.label || "NON (Hors de question)";
 
       // Reset feedback panel
       const fbPanel = document.getElementById('feedback-panel');
@@ -608,7 +971,7 @@
 
       // Gestion d'un éventuel ghosting / fin abrupte
       let ghosted = false;
-      if (!choseYes && outcome.instantDeathProb && Math.random() < outcome.instantDeathProb) {
+      if (outcome.instantDeathProb && Math.random() < outcome.instantDeathProb) {
         ghosted = true;
       }
 
@@ -636,7 +999,7 @@
       // Vérification des conditions critiques de Game Over
       if (ghosted) {
         state.isGameOver = true;
-        state.gameOverReason = "GHOSTÉ PAR L'ESN : Le commercial a coupé tout contact. Ton CV a été jeté dans la corbeille pour 'manque de flexibilité commerciale'.";
+        state.gameOverReason = outcome.deathReason || "GHOSTÉ PAR L'ESN : Le commercial a coupé tout contact. Ton CV a été jeté dans la corbeille pour 'manque de flexibilité commerciale'.";
       } else if (state.dignity <= 0) {
         state.isGameOver = true;
         state.gameOverReason = "BURNOUT INTÉGRAL : Dignité tombée à zéro. Tu as fondu en larmes en pleine réunion Teams de cadrage.";
@@ -649,17 +1012,18 @@
       document.getElementById('action-buttons').classList.add('hidden');
       
       const btnNext = document.getElementById('btn-next');
+      const baseBtnClass = "w-full border-4 border-black active:translate-x-1 active:translate-y-1 shadow-brutal font-black text-base py-3.5 rounded-lg text-center tracking-wide uppercase transition ";
       btnNext.classList.remove('hidden');
 
       if (state.isGameOver) {
         btnNext.textContent = "Voir le constat d'échec 💀";
-        btnNext.classList.replace('bg-[#fef08a]', 'bg-rose-300');
+        btnNext.className = baseBtnClass + "bg-rose-300 hover:bg-rose-400";
       } else if (state.currentQuestionIndex + 1 >= state.totalQuestions) {
         btnNext.textContent = "Découvrir mon Bilan Final 🏆";
-        btnNext.classList.replace('bg-[#fef08a]', 'bg-emerald-300');
+        btnNext.className = baseBtnClass + "bg-emerald-300 hover:bg-emerald-400";
       } else {
         btnNext.textContent = "Question Suivante →";
-        btnNext.className = "w-full border-4 border-black bg-[#fef08a] hover:bg-yellow-300 active:translate-x-1 active:translate-y-1 shadow-brutal font-black text-base py-3.5 rounded-lg text-center tracking-wide uppercase transition";
+        btnNext.className = baseBtnClass + "bg-[#fef08a] hover:bg-yellow-300";
       }
     }
 
