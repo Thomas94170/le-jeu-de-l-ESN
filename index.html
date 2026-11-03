@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Négocie ou Meurs — Le Juste TJM vs L'ESN</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            corporate: '#0f172a',
+            brutal: '#fef08a',
+            danger: '#ef4444',
+            success: '#10b981',
+            punchy: '#ec4899',
+            cardbg: '#ffffff'
+          },
+          boxShadow: {
+            'brutal': '5px 5px 0px 0px #000000',
+            'brutal-lg': '8px 8px 0px 0px #000000',
+            'brutal-sm': '3px 3px 0px 0px #000000',
+            'brutal-active': '1px 1px 0px 0px #000000',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+    
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .shake {
+      animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-2px, 0, 0); }
+      20%, 80% { transform: translate3d(3px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-5px, 0, 0); }
+      40%, 60% { transform: translate3d(5px, 0, 0); }
+    }
+
+    .tjm-bounce {
+      animation: tjmPop 0.3s ease-out;
+    }
+
+    @keyframes tjmPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="bg-[#f4efe6] text-slate-900 min-h-screen flex flex-col justify-between selection:bg-black selection:text-white">
+
+  <!-- Header minimaliste style De Gauche ou De Droite -->
+  <header class="border-b-4 border-black bg-white px-4 py-3 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-2xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="inline-block bg-black text-white text-xs font-mono-code px-2 py-1 uppercase tracking-wider font-bold">ESN Survival</span>
+        <h1 class="text-xl md:text-2xl font-extrabold tracking-tight">NÉGOCIE OU MEURS</h1>
+      </div>
+      <button id="help-btn" class="text-xs font-bold border-2 border-black px-2.5 py-1 rounded bg-[#fef08a] shadow-brutal-sm active:translate-x-0.5 active:translate-y-0.5 transition">
+        RÈGLES ?
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenu Principal -->
+  <main class="flex-1 max-w-xl w-full mx-auto p-4 flex flex-col justify-center relative">
+
+    <!-- ÉCRAN 1 : CHOIX DIFFICULTÉ -->
+    <div id="screen-home" class="space-y-6">
+      <div class="border-4 border-black bg-white p-6 shadow-brutal-lg rounded-xl">
+        <div class="text-4xl mb-3 text-center">👔 💼 📉</div>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-center uppercase tracking-tight">
+          Bienvenue en terre d'ESN
+        </h2>
+        <p class="text-slate-700 mt-2 text-center text-sm md:text-base leading-relaxed">
+          Un "Business Manager" bien coiffé veut vendre tes compétences avec <strong>65% de marge</strong>. Chaque réponse est un piège. Sauve ton TJM et ta dignité.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <label class="block text-xs font-mono-code font-bold uppercase tracking-wider text-slate-600">Choisis ton niveau de calvaire :</label>
+        
+        <button onclick="startGame(5, 'junior')" class="w-full text-left border-4 border-black bg-white p-4 shadow-brutal hover:bg-emerald-100 transition active:translate-x-1 active:translate-y-1 group rounded-lg">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-xs bg-emerald-200 border-2 border-black font-mono-code font-bold px-2 py-0.5 rounded">JUNIOR (5 questions)</span>
+              <h3 class="font-bold text-lg mt-1 group-hover:text-black">Le Rookie naïf</h3>
+              <p class="text-xs text-slate-600">Objectif de base : 550€ TJM. Moins de réunions de cadrage, survie possible.</p>
+            </div>
+            <span class="text-2xl">🌱</span>
+          </div>
+        </button>
+
+        <button onclick="startGame(10, 'confirme')" class="w-full text-left border-4 border-black bg-white p-4 shadow-brutal hover:bg-amber-100 transition active:translate-x-1 active:translate-y-1 group rounded-lg">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-xs bg-amber-200 border-2 border-black font-mono-code font-bold px-2 py-0.5 rounded">CONFIRMÉ (10 questions)</span>
+              <h3 class="font-bold text-lg mt-1 group-hover:text-black">Le Développeur usé</h3>
+              <p class="text-xs text-slate-600">Objectif de base : 650€ TJM. Babyfoot obligatoire, pressions sournoises.</p>
+            </div>
+            <span class="text-2xl">⚡</span>
+          </div>
+        </button>
+
+        <button onclick="startGame(15, 'senior')" class="w-full text-left border-4 border-black bg-white p-4 shadow-brutal hover:bg-red-100 transition active:translate-x-1 active:translate-y-1 group rounded-lg">
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-xs bg-red-300 border-2 border-black font-mono-code font-bold px-2 py-0.5 rounded">SÉNIOR (15 questions)</span>
+              <h3 class="font-bold text-lg mt-1 group-hover:text-black">L'Enfer du Lead Architecte</h3>
+              <p class="text-xs text-slate-600">Objectif : 850€ TJM. Négos sauvages, clause de non-concurrence de l'espace.</p>
+            </div>
+            <span class="text-2xl">💀</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ÉCRAN 2 : JEU EN COURS -->
+    <div id="screen-game" class="hidden flex-col gap-4">
+      
+      <!-- Barre d'état (TJM & Dignité) -->
+      <div class="grid grid-cols-2 gap-3">
+        <!-- Boîte TJM -->
+        <div class="border-4 border-black bg-white p-3 shadow-brutal rounded-lg flex flex-col justify-center">
+          <span class="text-[11px] font-mono-code uppercase font-bold text-slate-500">TJM Actuel</span>
+          <div class="flex items-baseline gap-1">
+            <span id="stat-tjm" class="text-2xl md:text-3xl font-black font-mono-code text-slate-900 transition-all">650</span>
+            <span class="text-sm font-bold">€ / jour</span>
+          </div>
+        </div>
+
+        <!-- Boîte Dignité -->
+        <div class="border-4 border-black bg-white p-3 shadow-brutal rounded-lg flex flex-col justify-center">
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-[11px] font-mono-code uppercase font-bold text-slate-500">Dignité freelance</span>
+            <span id="stat-dignity-val" class="font-mono-code font-black text-xs">100%</span>
+          </div>
+          <div class="w-full bg-slate-200 border-2 border-black h-4 rounded overflow-hidden p-0.5">
+            <div id="stat-dignity-bar" class="h-full bg-emerald-400 transition-all duration-300 rounded-sm" style="width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progression de la négociation -->
+      <div class="flex justify-between items-center text-xs font-mono-code font-bold text-slate-600 px-1">
+        <span id="step-indicator">Question 1/10</span>
+        <span id="commercial-badge" class="bg-black text-white px-2 py-0.5 rounded text-[10px]">BM : Maxence de La Tour</span>
+      </div>
+
+      <!-- CARTE QUESTION CENTRALE -->
+      <div id="question-card" class="border-4 border-black bg-white rounded-xl shadow-brutal-lg p-5 md:p-6 transition-all duration-200">
+        
+        <!-- En-tête ESN corporate -->
+        <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-3 mb-4">
+          <div id="bm-avatar" class="w-12 h-12 rounded-full border-2 border-black flex items-center justify-center text-2xl bg-amber-200 flex-shrink-0">
+            👱‍♂️
+          </div>
+          <div class="leading-tight overflow-hidden">
+            <div id="bm-name" class="font-extrabold text-sm truncate">Jean-Eudes, Talent Acquisition Director</div>
+            <div id="bm-punchline" class="text-xs italic text-slate-500 truncate">"Chez nous, l'humain est au centre du process"</div>
+          </div>
+        </div>
+
+        <!-- Question posée -->
+        <div class="min-h-[100px] flex items-center justify-center text-center py-2">
+          <p id="question-text" class="text-lg md:text-xl font-bold text-slate-900 leading-snug">
+            Question en attente...
+          </p>
+        </div>
+
+        <!-- Feedback pop (affiché après choix) -->
+        <div id="feedback-panel" class="hidden mt-4 p-3 border-2 border-black text-xs md:text-sm font-bold rounded">
+          <div id="feedback-outcome" class="font-mono-code text-xs uppercase mb-1"></div>
+          <div id="feedback-text" class="italic"></div>
+        </div>
+
+      </div>
+
+      <!-- BOUTONS DE DÉCISION (STYLE KAMICHOIX OUI / NON) -->
+      <div id="action-buttons" class="grid grid-cols-2 gap-3 mt-1">
+        <button id="btn-choice-1" onclick="handleAnswer(true)" class="border-4 border-black bg-emerald-300 hover:bg-emerald-400 active:translate-x-1 active:translate-y-1 shadow-brutal font-extrabold text-base md:text-lg py-3.5 px-3 rounded-lg flex flex-col items-center justify-center transition">
+          <span class="text-xs font-mono-code uppercase opacity-75 font-semibold">Touche [A] ou</span>
+          <span id="btn-choice-1-label">OUI (J'accepte)</span>
+        </button>
+
+        <button id="btn-choice-2" onclick="handleAnswer(false)" class="border-4 border-black bg-rose-300 hover:bg-rose-400 active:translate-x-1 active:translate-y-1 shadow-brutal font-extrabold text-base md:text-lg py-3.5 px-3 rounded-lg flex flex-col items-center justify-center transition">
+          <span class="text-xs font-mono-code uppercase opacity-75 font-semibold">Touche [L] ou</span>
+          <span id="btn-choice-2-label">NON (C'est mort)</span>
+        </button>
+      </div>
+
+      <!-- Bouton continuer masqué par défaut -->
+      <button id="btn-next" onclick="nextQuestion()" class="hidden w-full border-4 border-black bg-[#fef08a] hover:bg-yellow-300 active:translate-x-1 active:translate-y-1 shadow-brutal font-black text-base py-3.5 rounded-lg text-center tracking-wide uppercase transition">
+        Question Suivante →
+      </button>
+
+    </div>
+
+    <!-- ÉCRAN 3 : BILAN FINAL & DÉBRIEF RH -->
+    <div id="screen-result" class="hidden space-y-5">
+      <div id="result-box" class="border-4 border-black bg-white p-6 shadow-brutal-lg rounded-xl text-center">
+        <span id="result-emoji" class="text-5xl block mb-2">🎉</span>
+        <span id="result-badge" class="inline-block bg-black text-white font-mono-code text-xs font-bold px-3 py-1 uppercase rounded mb-2">Statut Freelance</span>
+        <h2 id="result-title" class="text-2xl md:text-3xl font-black uppercase tracking-tight">Titre</h2>
+        
+        <div class="my-4 p-4 border-2 border-black bg-slate-50 rounded-lg text-left space-y-2 font-mono-code text-xs md:text-sm">
+          <div class="flex justify-between">
+            <span>TJM FINAL :</span>
+            <span id="res-tjm" class="font-bold text-base text-black">650 €</span>
+          </div>
+          <div class="flex justify-between">
+            <span>DIGNITÉ RESTANTE :</span>
+            <span id="res-dignity" class="font-bold text-base text-black">80%</span>
+          </div>
+          <div class="flex justify-between border-t border-slate-300 pt-2">
+            <span>DIAGNOSTIC DE CARRIÈRE :</span>
+            <span id="res-diag" class="font-bold text-right text-black">Mercenaire stable</span>
+          </div>
+        </div>
+
+        <p id="result-desc" class="text-slate-700 text-sm italic leading-relaxed mt-2">
+          Description du sort du freelance...
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <button onclick="shareScore()" class="border-4 border-black bg-[#fef08a] hover:bg-yellow-300 active:translate-x-1 active:translate-y-1 shadow-brutal font-black py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-sm uppercase">
+          <span>📋</span> Copier mon bilan
+        </button>
+        <button onclick="resetGame()" class="border-4 border-black bg-white hover:bg-slate-100 active:translate-x-1 active:translate-y-1 shadow-brutal font-black py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-sm uppercase">
+          <span>🔄</span> Nouvelle négociation
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL RÈGLES / INFO -->
+  <div id="modal-rules" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+    <div class="bg-white border-4 border-black max-w-md w-full p-6 shadow-brutal-lg rounded-xl relative space-y-4">
+      <button onclick="toggleHelp(false)" class="absolute top-3 right-3 border-2 border-black font-mono-code font-bold w-7 h-7 flex items-center justify-center bg-rose-300 hover:bg-rose-400">✕</button>
+      <h3 class="text-xl font-black uppercase">Le Manuel de l'Indépendant</h3>
+      <div class="text-sm space-y-2 text-slate-700">
+        <p>• <strong>Le TJM</strong> est ton taux journalier moyen. S'il tombe trop bas (< 300€), tu deviens officiellement esclave de SSII.</p>
+        <p>• <strong>La Dignité</strong> baisse quand tu acceptes des conditions absurdes (babyfoot à 19h, tests non payés, astreintes gratuites).</p>
+        <p>• Si ta Dignité tombe à <strong>0%</strong>, c'est le <em>Burnout</em> immédiat. Si tu dis trop souvent "Non", l'ESN te ghoste direct pour un junior sous-payé.</p>
+        <p class="font-mono-code text-xs bg-slate-100 p-2 border border-black rounded">💡 Raccourcis clavier : Touche [A] pour OUI, [L] pour NON, [Espace] pour continuer.</p>
+      </div>
+      <button onclick="toggleHelp(false)" class="w-full border-2 border-black bg-black text-white font-bold py-2 text-sm uppercase">Compris, je signe rien</button>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-black text-white text-xs font-mono-code px-4 py-2 rounded border border-white shadow-lg pointer-events-none opacity-0 transition-opacity duration-300 z-50">
+    Score copié dans le presse-papier !
+  </div>
+
+  <!-- Footer style copyright loufoque -->
+  <footer class="border-t-4 border-black bg-white p-3 text-center text-xs font-mono-code text-slate-500">
+    Inspiré de faits 100% réels vécus sur LinkedIn. Tout ressemblance avec un commercial en costard trop serré n'est pas fortuite.
+  </footer>
+
+  <script>
+    // --- BANQUE DE COMMERCIAUX CORPORATE ---
+    const BMS = [
+      { name: "Maxime, 'Head of Growth Talent' chez SynErgy-Tech", punch: "« Chez nous, on ne recrute pas des devs, on onboarde des pépites ! »", avatar: "👱‍♂️" },
+      { name: "Clémence, 'Chief People & Happiness Evangelist'", punch: "« Notre culture d'entreprise c'est zéro bullshit et pizzas offertes ! »", avatar: "👩‍💼" },
+      { name: "Thibault, 'Senior Key Account Disruptor'", punch: "« C'est pour un grand compte du CAC40, la visibilité est folle ! »", avatar: "🧔" },
+      { name: "Aurélien, 'Global Talent Matcher'", punch: "« On marge à seulement 8%, on est presque des bénévoles ! »", avatar: "🤵" },
+      { name: "Jessica, 'Lead Tech Recruiter 3.0'", punch: "« Le client adore ton énergie, il veut juste aligner les budgets ! »", avatar: "👩‍🦰" }
+    ];
+
+    // --- BANQUE DE QUESTIONS PIÈGES ---
+    const QUESTIONS_POOL = [
+      {
+        q: "« Le client adore ton profil, on peut juste baisser un peu le TJM de 80€ pour closer le deal ? »",
+        yes: {
+          tjm: -80,
+          dignity: -15,
+          instantDeath: false,
+          outcome: "Accepté 📉",
+          feedback: "Tu signes, mais tu manges désormais des coquillettes eco+ le soir pour rentabiliser tes cotisations URSSAF."
+        },
+        no: {
+          tjm: 0,
+          dignity: +5,
+          instantDeathProb: 0.25,
+          outcome: "Refusé 🛑",
+          feedback: "L'ESN a pris un profil en reconversion de 4 semaines qui a accepté 350€. Mais ton honneur est intact."
+        }
+      },
+      {
+        q: "« On cherche un Lead Fullstack Devops React Nest Kubernetes qui fait aussi Scrum Master pour 420€, tu es partant ? »",
+        yes: {
+          tjm: -120,
+          dignity: -25,
+          outcome: "Accepte le sacrifice 😵",
+          feedback: "Félicitations, tu fais le boulot de 4 personnes pour le salaire d'un stagiaire de 3ème."
+        },
+        no: {
+          tjm: +20,
+          dignity: +10,
+          outcome: "Remise en place polie 💪",
+          feedback: "Le BM bégaye et se rend compte qu'un devops n'est pas un installateur d'imprimante. Tu gagnes le respect."
+        }
+      },
+      {
+        q: "« On organise un super team-building karting obligatoire un samedi matin à 8h à Trappes, tu viens ? »",
+        yes: {
+          tjm: 0,
+          dignity: -30,
+          outcome: "Esprit d'équipe toxique 🏎️",
+          feedback: "Tu perds ton samedi à faire la course avec un commercial qui te grille en criant 'SYNERGIE !'. Tu as envie de démissionner de toi-même."
+        },
+        no: {
+          tjm: 0,
+          dignity: +10,
+          outcome: "Non merci 🛋️",
+          feedback: "On te taxe de 'pas corporate du tout', mais tu as fait une grasse mat' légendaire."
+        }
+      },
+      {
+        q: "« Le client demande un test technique non rémunéré de 4 jours sur un cas réel de production. Tu commences ce soir ? »",
+        yes: {
+          tjm: -50,
+          dignity: -35,
+          outcome: "Travail dissimulé validé 🤡",
+          feedback: "Le client a push ton code en prod le lundi matin et a annulé le poste pour 'restrictions budgétaires'."
+        },
+        no: {
+          tjm: +15,
+          dignity: +15,
+          outcome: "Veto freelance 🛡️",
+          feedback: "Tu lui proposes d'auditer son archi au tarif horaire de 120€. Il s'est étouffé avec son café bio."
+        }
+      },
+      {
+        q: "« On paye à 90 jours fin de mois, mais rassure-toi : on a un babyfoot flambant neuf et des cafés noisette gratuits ! »",
+        yes: {
+          tjm: -40,
+          dignity: -20,
+          outcome: "Trésorerie en PLS ☕",
+          feedback: "Ta banque t'appelle pour interdit bancaire, mais au moins tu sais faire des 'gamelles' au babyfoot."
+        },
+        no: {
+          tjm: +30,
+          dignity: +10,
+          outcome: "Loi LME invoquée ⚖️",
+          feedback: "Tu rappelles la loi sur les délais de paiement. Ils découvrent avec effroi l'existence du code de commerce."
+        }
+      },
+      {
+        q: "« Tu peux passer en portage salarial avec notre filiale obscure immatriculée à Malte ? C'est optimisé fiscalement ! »",
+        yes: {
+          tjm: +60,
+          dignity: -30,
+          taxAudit: true,
+          outcome: "Contrôle fiscal imminent 🛃",
+          feedback: "Tu gagnes plus... jusqu'au courrier recommandé avec accusé de réception du Trésor Public."
+        },
+        no: {
+          tjm: 0,
+          dignity: +10,
+          outcome: "Légaliste 🇫🇷",
+          feedback: "Tu préfères déclarer chaque centime à l'URSSAF. Tu paies 50% de cotisations mais tu dors la nuit."
+        }
+      },
+      {
+        q: "« Le client fait 0 jour de télétravail par an et exige une webcam allumée en permanence pour le 'cohésion building'. Ça passe ? »",
+        yes: {
+          tjm: -30,
+          dignity: -30,
+          outcome: "Panoptique corporate 👁️",
+          feedback: "Le manager commente chaque gorgée d'eau que tu prends. Ton chat passe devant la cam, avertissement écrit."
+        },
+        no: {
+          tjm: 0,
+          dignity: +15,
+          outcome: "Refus catégorique 🏠",
+          feedback: "Tu expliques que ton setup double-écran 4K ne voyage pas sur la ligne 13 à 8h15. Bien joué."
+        }
+      },
+      {
+        q: "« Si tu baisses ton TJM de 50€ maintenant, je te promets une revalorisation automatique de 150€ dans 6 mois (croix de bois) ! »",
+        yes: {
+          tjm: -70,
+          dignity: -20,
+          outcome: "Pigeonné 🕊️",
+          feedback: "Dans 6 mois, ton BM aura changé de boîte et son successeur dira : 'Je ne trouve aucune trace de cet accord verbal'."
+        },
+        no: {
+          tjm: +20,
+          dignity: +10,
+          outcome: "Écrit ou rien 📝",
+          feedback: "Tu demandes un avenant signé tout de suite. Le commercial disparaît mystérieusement dans un nuage de fumée."
+        }
+      },
+      {
+        q: "« Le client cherche un Lead Tech qui accepte aussi de faire les astreintes de nuit le dimanche sans majoration pour 'dépanner'. »",
+        yes: {
+          tjm: -60,
+          dignity: -30,
+          outcome: "Nuit blanche offerte 🦉",
+          feedback: "Réveillé à 3h42 du matin par une alerte PagerDuty car un stagiaire a drop la table 'users'. TJM effectif : 12€/heure."
+        },
+        no: {
+          tjm: +30,
+          dignity: +10,
+          outcome: "Droit à la déconnexion 😴",
+          feedback: "Ton téléphone passe en Ne Pas Déranger à 18h01 pile. Sommeil réparateur, santé mentale préservée."
+        }
+      },
+      {
+        q: "« Le client veut qu'on utilise son PC portable de 2014 avec 4 Go de RAM et un VPN bridé à 200 Ko/s. Tu t'adaptes ? »",
+        yes: {
+          tjm: -30,
+          dignity: -20,
+          outcome: "Build de 45 minutes 🐢",
+          feedback: "Chaque commande 'npm run build' te laisse le temps de faire les courses, de passer l'aspirateur et de méditer."
+        },
+        no: {
+          tjm: 0,
+          dignity: +10,
+          outcome: "Macbook M3 ou grève 💻",
+          feedback: "Tu refuses d'ouvrir VS Code sur une machine qui ventile comme un réacteur d'A380. Ils finissent par t'acheter une bête de course."
+        }
+      },
+      {
+        q: "« On te propose un fixe à 450€ + un variable de 200€ si le projet sort avec 0 bug et avant la deadline. Deal ? »",
+        yes: {
+          tjm: -90,
+          dignity: -25,
+          outcome: "L'illusion du variable 🎰",
+          feedback: "Le Product Owner a changé 8 fois les specs à J-2. Variable envolé. Tu touches 450€ pour 65h de taf par semaine."
+        },
+        no: {
+          tjm: +35,
+          dignity: +10,
+          outcome: "Forfait pur et dur 💰",
+          feedback: "Tu es freelance, pas joueur de roulette au casino d'Enghien. TJM fixe garanti !"
+        }
+      },
+      {
+        q: "« Pour s'aligner avec les valeurs ESG du client, peux-tu rédiger un rapport d'impact carbone de 40 pages en plus de tes sprints ? »",
+        yes: {
+          tjm: -40,
+          dignity: -20,
+          outcome: "Greenwashing intensif 🍃",
+          feedback: "Tu calcules le CO2 des if/else. Le client imprime ton rapport en 300 exemplaires papier couché pour la com'."
+        },
+        no: {
+          tjm: +10,
+          dignity: +10,
+          outcome: "Focus Tech ⚡",
+          feedback: "Tu réponds : 'Optimiser mes requêtes SQL fera économiser plus de watts que votre PDF'. Silence gêné."
+        }
+      },
+      {
+        q: "« On a un partenariat avec une startup qui te paie 30% en tokens de crypto 'ESNCoin'. Le futur est en marche ! »",
+        yes: {
+          tjm: -150,
+          dignity: -40,
+          outcome: "Rug pull immédiat 🪙",
+          feedback: "Le cours du token plonge de 99,8% dès le lendemain. Tu possèdes l'équivalent de 3 centimes d'euros sur la blockchain."
+        },
+        no: {
+          tjm: +20,
+          dignity: +10,
+          outcome: "Euros sonnants et trébuchants 💶",
+          feedback: "L'URSSAF et ton proprio n'acceptent pas les 'ESNCoins' pour le loyer. Choix pragmatique."
+        }
+      },
+      {
+        q: "« Le client impose la méthode 'Safe Agile Scaled V3' avec 14 réunions quotidiennes et 3 comités de pilotage par semaine. »",
+        yes: {
+          tjm: -50,
+          dignity: -25,
+          outcome: "Réunionite aiguë 🥱",
+          feedback: "Tu n'as pas écrit une ligne de code depuis 3 mois. Tu es devenu un distributeur automatique de post-it virtuels."
+        },
+        no: {
+          tjm: +25,
+          dignity: +15,
+          outcome: "Moins de blabla, plus de code 💻",
+          feedback: "Tu imposes un modèle asynchrone sur Slack. La productivité décolle, le Scrum Master prend des vacances forcées."
+        }
+      },
+      {
+        q: "« Le directeur de mission te demande de modifier ton CV pour rajouter 8 ans d'expérience sur une techno sortie l'an dernier. »",
+        yes: {
+          tjm: +40,
+          dignity: -35,
+          outcome: "Giga Mythomane 🤥",
+          feedback: "En entretien client, le Lead Tech te demande comment tu configurais Kubernetes en 2008. Sueurs froides."
+        },
+        no: {
+          tjm: 0,
+          dignity: +20,
+          outcome: "Intégrité brute 🏆",
+          feedback: "Tu refuses de falsifier ton historique. Le client apprécie ton honnêteté et te prend quand même."
+        }
+      }
+    ];
+
+    // --- ÉTAT DU JEU ---
+    let state = {
+      totalQuestions: 5,
+      currentQuestionIndex: 0,
+      tjm: 600,
+      dignity: 100,
+      isGameOver: false,
+      gameOverReason: "",
+      questions: [],
+      awaitingNext: false,
+      difficulty: 'junior'
+    };
+
+    // --- DÉMARRAGE DU JEU ---
+    function startGame(numQuestions, diffKey) {
+      state.totalQuestions = numQuestions;
+      state.currentQuestionIndex = 0;
+      state.dignity = 100;
+      state.isGameOver = false;
+      state.gameOverReason = "";
+      state.awaitingNext = false;
+      state.difficulty = diffKey;
+
+      // TJM initial selon difficulté
+      if (diffKey === 'junior') state.tjm = 550;
+      else if (diffKey === 'confirme') state.tjm = 650;
+      else if (diffKey === 'senior') state.tjm = 850;
+
+      // Mélange aléatoire des questions
+      const shuffled = [...QUESTIONS_POOL].sort(() => 0.5 - Math.random());
+      state.questions = shuffled.slice(0, numQuestions);
+
+      // Transition d'écran
+      document.getElementById('screen-home').classList.add('hidden');
+      document.getElementById('screen-result').classList.add('hidden');
+      document.getElementById('screen-game').classList.remove('hidden');
+      document.getElementById('screen-game').classList.add('flex');
+
+      updateUI();
+      renderQuestion();
+    }
+
+    // --- AFFICHAGE DE LA QUESTION COURANTE ---
+    function renderQuestion() {
+      state.awaitingNext = false;
+      const q = state.questions[state.currentQuestionIndex];
+      const bm = BMS[Math.floor(Math.random() * BMS.length)];
+
+      // BM info
+      document.getElementById('bm-avatar').textContent = bm.avatar;
+      document.getElementById('bm-name').textContent = bm.name;
+      document.getElementById('bm-punchline').textContent = bm.punch;
+      document.getElementById('commercial-badge').textContent = `BM : ${bm.name.split(',')[0]}`;
+
+      // Question texte
+      document.getElementById('question-text').textContent = q.q;
+
+      // Boutons labels
+      document.getElementById('btn-choice-1-label').textContent = "OUI (J'accepte)";
+      document.getElementById('btn-choice-2-label').textContent = "NON (Hors de question)";
+
+      // Reset feedback panel
+      const fbPanel = document.getElementById('feedback-panel');
+      fbPanel.classList.add('hidden');
+      fbPanel.className = "hidden mt-4 p-3 border-2 border-black text-xs md:text-sm font-bold rounded";
+
+      // Toggle boutons
+      document.getElementById('action-buttons').classList.remove('hidden');
+      document.getElementById('btn-next').classList.add('hidden');
+
+      // Update indicateur
+      document.getElementById('step-indicator').textContent = `Question ${state.currentQuestionIndex + 1}/${state.totalQuestions}`;
+
+      // Animation subtile d'apparition de carte
+      const card = document.getElementById('question-card');
+      card.classList.remove('scale-95');
+      card.classList.add('scale-100');
+    }
+
+    // --- TRAITEMENT DU CHOIX ---
+    function handleAnswer(choseYes) {
+      if (state.awaitingNext) return;
+
+      const q = state.questions[state.currentQuestionIndex];
+      const outcome = choseYes ? q.yes : q.no;
+
+      let tjmDelta = outcome.tjm || 0;
+      let dignityDelta = outcome.dignity || 0;
+
+      // Gestion d'un éventuel ghosting / fin abrupte
+      let ghosted = false;
+      if (!choseYes && outcome.instantDeathProb && Math.random() < outcome.instantDeathProb) {
+        ghosted = true;
+      }
+
+      state.tjm += tjmDelta;
+      state.dignity = Math.max(0, Math.min(100, state.dignity + dignityDelta));
+
+      // Mise à jour visuelle des compteurs
+      updateUI(tjmDelta !== 0);
+
+      // Feedback visuel
+      const fbPanel = document.getElementById('feedback-panel');
+      const fbOutcome = document.getElementById('feedback-outcome');
+      const fbText = document.getElementById('feedback-text');
+
+      fbPanel.classList.remove('hidden');
+      fbOutcome.textContent = outcome.outcome;
+      fbText.textContent = outcome.feedback;
+
+      if (choseYes) {
+        fbPanel.classList.add('bg-emerald-100', 'border-emerald-600', 'text-emerald-950');
+      } else {
+        fbPanel.classList.add('bg-rose-100', 'border-rose-600', 'text-rose-950');
+      }
+
+      // Vérification des conditions critiques de Game Over
+      if (ghosted) {
+        state.isGameOver = true;
+        state.gameOverReason = "GHOSTÉ PAR L'ESN : Le commercial a coupé tout contact. Ton CV a été jeté dans la corbeille pour 'manque de flexibilité commerciale'.";
+      } else if (state.dignity <= 0) {
+        state.isGameOver = true;
+        state.gameOverReason = "BURNOUT INTÉGRAL : Dignité tombée à zéro. Tu as fondu en larmes en pleine réunion Teams de cadrage.";
+      } else if (state.tjm < 280) {
+        state.isGameOver = true;
+        state.gameOverReason = "TARIF SOUS-SMIC : À 280€ en freelance, tu touches moins net qu'un préparateur de commande après impôts et CFE.";
+      }
+
+      state.awaitingNext = true;
+      document.getElementById('action-buttons').classList.add('hidden');
+      
+      const btnNext = document.getElementById('btn-next');
+      btnNext.classList.remove('hidden');
+
+      if (state.isGameOver) {
+        btnNext.textContent = "Voir le constat d'échec 💀";
+        btnNext.classList.replace('bg-[#fef08a]', 'bg-rose-300');
+      } else if (state.currentQuestionIndex + 1 >= state.totalQuestions) {
+        btnNext.textContent = "Découvrir mon Bilan Final 🏆";
+        btnNext.classList.replace('bg-[#fef08a]', 'bg-emerald-300');
+      } else {
+        btnNext.textContent = "Question Suivante →";
+        btnNext.className = "w-full border-4 border-black bg-[#fef08a] hover:bg-yellow-300 active:translate-x-1 active:translate-y-1 shadow-brutal font-black text-base py-3.5 rounded-lg text-center tracking-wide uppercase transition";
+      }
+    }
+
+    // --- PASSER À LA QUESTION SUIVANTE / FIN ---
+    function nextQuestion() {
+      if (state.isGameOver || state.currentQuestionIndex + 1 >= state.totalQuestions) {
+        showGameOver();
+        return;
+      }
+
+      state.currentQuestionIndex++;
+      renderQuestion();
+    }
+
+    // --- MISE À JOUR UI STATS ---
+    function updateUI(triggerBounce = false) {
+      const tjmEl = document.getElementById('stat-tjm');
+      tjmEl.textContent = state.tjm;
+
+      if (triggerBounce) {
+        tjmEl.classList.add('tjm-bounce');
+        setTimeout(() => tjmEl.classList.remove('tjm-bounce'), 300);
+      }
+
+      // Bar de dignité
+      const bar = document.getElementById('stat-dignity-bar');
+      const val = document.getElementById('stat-dignity-val');
+      bar.style.width = `${state.dignity}%`;
+      val.textContent = `${state.dignity}%`;
+
+      if (state.dignity < 30) {
+        bar.className = "h-full bg-rose-500 transition-all duration-300 rounded-sm";
+      } else if (state.dignity < 65) {
+        bar.className = "h-full bg-amber-400 transition-all duration-300 rounded-sm";
+      } else {
+        bar.className = "h-full bg-emerald-400 transition-all duration-300 rounded-sm";
+      }
+    }
+
+    // --- ÉCRAN DE FIN ---
+    function showGameOver() {
+      document.getElementById('screen-game').classList.add('hidden');
+      document.getElementById('screen-game').classList.remove('flex');
+      
+      const resScreen = document.getElementById('screen-result');
+      resScreen.classList.remove('hidden');
+
+      const emojiEl = document.getElementById('result-emoji');
+      const titleEl = document.getElementById('result-title');
+      const descEl = document.getElementById('result-desc');
+      const diagEl = document.getElementById('res-diag');
+
+      document.getElementById('res-tjm').textContent = `${state.tjm} € / jour`;
+      document.getElementById('res-dignity').textContent = `${state.dignity} %`;
+
+      if (state.gameOverReason) {
+        emojiEl.textContent = "🪦";
+        titleEl.textContent = "Éliminé du Marché";
+        diagEl.textContent = "Placardisé / Ghosté";
+        descEl.textContent = state.gameOverReason;
+        document.getElementById('result-box').classList.add('border-red-600');
+        return;
+      }
+
+      // Évaluation selon TJM final
+      if (state.tjm < 380) {
+        emojiEl.textContent = "⛓️";
+        titleEl.textContent = "Esclave de Régie Certifié";
+        diagEl.textContent = "Margé à 60% par le commercial";
+        descEl.textContent = "Tu as accepté toutes les compromissions. Le commercial vient de s'acheter une Audi Q3 grâce à ta marge brute, pendant que tu vérifies le solde de ton compte Lydia.";
+      } else if (state.tjm >= 380 && state.tjm < 580) {
+        emojiEl.textContent = "🚗";
+        titleEl.textContent = "Freelance Pragmatique de Zone Artisanale";
+        diagEl.textContent = "Développeur docile";
+        descEl.textContent = "Tu survis. Pas de quoi faire des threads LinkedIn inspirants avec un café latte à Bali, mais tu paies tes factures et le client ne t'appelle presque pas le week-end.";
+      } else if (state.tjm >= 580 && state.tjm <= 780) {
+        emojiEl.textContent = "🦾";
+        titleEl.textContent = "Mercenaire Respecté";
+        diagEl.textContent = "Négociateur aguerri";
+        descEl.textContent = "Tu as posé tes limites sans trembler. Les commerciaux parlent de toi à voix basse dans l'open space avec un mélange de crainte et de fascination.";
+      } else {
+        emojiEl.textContent = "👑";
+        titleEl.textContent = "Divinité du TJM / Légende LinkedIn";
+        diagEl.textContent = "Terreur absolue des ESN";
+        descEl.textContent = "Impossible à faire plier. Tu factures des journées de 4 heures à quatre chiffres et tu imposes tes conditions en short dans les comités de direction.";
+      }
+    }
+
+    // --- REJOUER ---
+    function resetGame() {
+      document.getElementById('screen-result').classList.add('hidden');
+      document.getElementById('screen-home').classList.remove('hidden');
+      document.getElementById('result-box').classList.remove('border-red-600');
+    }
+
+    // --- PARTAGE DU SCORE ---
+    function shareScore() {
+      const title = document.getElementById('result-title').textContent;
+      const text = `🎯 J'ai affronté l'ESN sur 'Négocie ou Meurs' !\nRésultat : ${title} avec un TJM de ${state.tjm}€ (Dignité: ${state.dignity}%).\nÀ toi de négocier ton profil !`;
+      
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast();
+        });
+      }
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2000);
+    }
+
+    // --- AIDE & RÈGLES ---
+    function toggleHelp(show) {
+      const modal = document.getElementById('modal-rules');
+      if (show) modal.classList.remove('hidden');
+      else modal.classList.add('hidden');
+    }
+
+    document.getElementById('help-btn').addEventListener('click', () => toggleHelp(true));
+
+    // --- RACCOURCIS CLAVIER (A / L / Espace) ---
+    window.addEventListener('keydown', (e) => {
+      const gameVisible = !document.getElementById('screen-game').classList.contains('hidden');
+      if (!gameVisible) return;
+
+      if (state.awaitingNext) {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          nextQuestion();
+        }
+      } else {
+        if (e.key === 'a' || e.key === 'A') {
+          handleAnswer(true);
+        } else if (e.key === 'l' || e.key === 'L') {
+          handleAnswer(false);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
