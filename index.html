@@ -133,12 +133,12 @@
           </div>
         </button>
 
-        <button onclick="startGame(18, 'vecu')" class="w-full text-left border-4 border-black bg-[#fef08a] p-4 shadow-brutal hover:bg-yellow-300 transition active:translate-x-1 active:translate-y-1 group rounded-lg">
+        <button onclick="startGame(20, 'vecu')" class="w-full text-left border-4 border-black bg-[#fef08a] p-4 shadow-brutal hover:bg-yellow-300 transition active:translate-x-1 active:translate-y-1 group rounded-lg">
           <div class="flex justify-between items-center">
             <div>
-              <span class="text-xs bg-black text-white border-2 border-black font-mono-code font-bold px-2 py-0.5 rounded">100% VÉCU (18 anecdotes)</span>
+              <span class="text-xs bg-black text-white border-2 border-black font-mono-code font-bold px-2 py-0.5 rounded">100% VÉCU (20 sur 38 anecdotes)</span>
               <h3 class="font-bold text-lg mt-1 group-hover:text-black">Le Musée des Horreurs ESN</h3>
-              <p class="text-xs text-slate-700">Java = JS, C orienté objet, test sur feuille A4 à Opéra, marge à 100% et plaque de cuisson allumée.</p>
+              <p class="text-xs text-slate-700">CV trafiqué, .docx anonymisé, 300€/j « mal payé longtemps », specs sous Paint et ghosting sauvage.</p>
             </div>
             <span class="text-2xl">🔥</span>
           </div>
@@ -170,6 +170,15 @@
             <div id="stat-dignity-bar" class="h-full bg-emerald-400 transition-all duration-300 rounded-sm" style="width: 100%;"></div>
           </div>
         </div>
+      </div>
+
+      <!-- Barre Risque de Ghosting (Patience du BM) -->
+      <div class="border-4 border-black bg-white px-3 py-2 shadow-brutal rounded-lg flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-[11px] font-mono-code uppercase font-bold text-slate-600">Risque Ghosting si refus :</span>
+          <span id="stat-ghost-status" class="text-xs font-extrabold">🟢 Calme</span>
+        </div>
+        <span id="stat-ghost-prob" class="font-mono-code font-black text-xs px-2 py-0.5 border-2 border-black rounded bg-emerald-200">12%</span>
       </div>
 
       <!-- Progression de la négociation -->
@@ -869,7 +878,388 @@
           outcome: "Contre-enchère sauvage 📈",
           feedback: "À chaque fois qu'il enlève 100€, tu rajoutes 100€. Il bégaye que « ça marche pas comme ça » avant d'entendre la tonalité."
         }
+      },
+      {
+        realStory: true,
+        q: "« Tu peux m'envoyer ton CV au format .docx modifiable ? C'est juste pour le mettre au template de notre ESN avant de l'envoyer au client ! »",
+        yes: {
+          label: "Envoyer le .docx modifiable",
+          tjm: -30,
+          dignity: -25,
+          outcome: "Identité effacée et CV dopé 📝",
+          feedback: "Il a effacé ton numéro, remplacé ton nom par tes initiales et rajouté 'Expert COBOL & Blockchain' sans te prévenir."
+        },
+        no: {
+          label: "PDF verrouillé avec filigrane",
+          tjm: 0,
+          dignity: +15,
+          outcome: "Anti-falsification 🔒",
+          feedback: "Le commercial peste pendant 20 minutes devant son écran car son convertisseur PDF-to-Word gratuit décale toutes les colonnes."
+        }
+      },
+      {
+        realStory: true,
+        q: "3 semaines de silence radio total après ton entretien. Dimanche à 19h45, l'ESN t'appelle : « C'est bon, le client a validé ! Tu commences demain matin à 8h30 sur site ! »",
+        yes: {
+          label: "Repasser une chemise en panique",
+          tjm: -20,
+          dignity: -25,
+          outcome: "Pion mobilisable 24/7 ♟️",
+          feedback: "Tu annules tes plans à la dernière minute. Le lundi matin à 8h30, ton badge d'accès n'est évidemment même pas créé."
+        },
+        no: {
+          label: "« J'ai un préavis de politesse : lundi prochain »",
+          tjm: +15,
+          dignity: +20,
+          outcome: "Pas à votre sifflet ⏱️",
+          feedback: "Tu n'es pas un pompier de garde. Après avoir soufflé très fort au téléphone, le commercial finit par décaler le démarrage."
+        }
+      },
+      {
+        realStory: true,
+        q: "L'ESN t'appelait 4 fois par jour avant la signature. Une fois placé chez le client : 0 appel ni nouvelle pendant 11 mois... sauf aujourd'hui à 17h58 car tu n'as pas encore signé ton CRA !",
+        yes: {
+          label: "Signer le CRA dans la minute",
+          tjm: 0,
+          dignity: -20,
+          outcome: "Vache à lait docile 🐄",
+          feedback: "Dès le clic validé, le commercial redisparaît dans le néant cosmique jusqu'au 30 du mois suivant."
+        },
+        no: {
+          label: "Répondre dans 11 mois",
+          tjm: 0,
+          dignity: +20,
+          outcome: "Miroir magique 🪞",
+          feedback: "Soudainement, ton manager t'appelle 6 fois en une heure et te propose un 'déjeuner de suivi' pour savoir comment tu vas."
+        }
+      },
+      {
+        realStory: true,
+        q: "Appel pour un grand compte. Avant même de dire bonjour ou de présenter la mission, la 1ère phrase du commercial est : « Quel est ton TJM minimum ? » (le moins cher l'emporte).",
+        yes: {
+          label: "Baisser son froc à 390€ pour gagner",
+          tjm: -140,
+          dignity: -30,
+          outcome: "Vainqueur du moins-disant 🗑️",
+          feedback: "Bravo, tu as battu les 14 autres candidats ! Par contre tu travailles désormais à perte."
+        },
+        no: {
+          label: "Donner ton vrai tarif sans rabais",
+          tjm: +20,
+          dignity: +15,
+          instantDeathProb: 0.75,
+          deathReason: "GHOSTING IMMÉDIAT : En 4 secondes chrono, le commercial a raccroché pour appeler le candidat suivant sur sa liste Excel qui a accepté 80€ de moins.",
+          outcome: "Enchère inversée refusée 🛡️",
+          feedback: "Miracle : tous les profils moins chers ont raté le test technique, ils sont obligés de te rappeler à ton vrai prix !"
+        }
+      },
+      {
+        realStory: true,
+        q: "Une ESN t'appelle pour une « mission idéale », mais passe 15 minutes à te demander les noms et lignes directes de tes anciens managers pour « vérifier tes références ».",
+        yes: {
+          label: "Donner les contacts de tes anciens clients",
+          tjm: -30,
+          dignity: -35,
+          instantDeathProb: 0.85,
+          deathReason: "VOL DE PORTFEUILLE CLIENT : Il n'y avait aucune mission ! L'ESN a juste pillé ton carnet d'adresses pour démarcher tes anciens clients et t'a ghosté dans la foulée.",
+          outcome: "Pigeon apporteur d'affaires gratuit 🕵️",
+          feedback: "Dès le dernier numéro noté, le commercial prétexte un double appel. Tes anciens managers reçoivent son appel commercial 10 minutes plus tard."
+        },
+        no: {
+          label: "« Références uniquement après offre signée »",
+          tjm: +10,
+          dignity: +25,
+          instantDeathProb: 0.70,
+          deathReason: "GHOSTÉ EN 3 SECONDES : Voyant que tu ne lâcherais aucun contact commercial à prospecter, le recruteur t'a raccroché au nez.",
+          outcome: "Carnet d'adresses blindé 🔐",
+          feedback: "Démasqué, le commercial bafouille que 'c'est la procédure groupe', mais finit par te parler d'un vrai besoin."
+        }
+      },
+      {
+        realStory: true,
+        q: "Une ESN te convoque 1h « pour faire connaissance et parler de ton parcours ». Sur place, tu comprends qu'ils n'ont aucune mission : tu sers juste à remplir leur base de données CRM.",
+        yes: {
+          label: "Raconter ta vie pendant 1 heure",
+          tjm: -20,
+          dignity: -25,
+          instantDeathProb: 0.90,
+          deathReason: "GHOSTÉ À 90% : Ton profil dort désormais à la ligne #48 219 de leur CRM. Le stagiaire a validé son quota de 15 RDV hebdomadaires grâce à toi.",
+          outcome: "Quota de RDV stagiaire validé 🗂️",
+          feedback: "« On garde ton CV bien au chaud au cas où ! » Spoiler : la banquise fondra avant qu'ils ne te rappellent."
+        },
+        no: {
+          label: "Couper court : « Vous avez une mission ou pas ? »",
+          tjm: 0,
+          dignity: +25,
+          instantDeathProb: 0.85,
+          deathReason: "FIN DE L'ENTRETIEN BIDON : Pas de mission en stock. Tu viens d'économiser 50 minutes de ta vie, mais tu ne reverras jamais cette ESN.",
+          outcome: "Temps précieux sauvé ⌚",
+          feedback: "Gêné, il fouille en panique dans le CRM de son collègue et te déterre une vraie mission cachée sous le tapis."
+        }
+      },
+      {
+        realStory: true,
+        q: "L'ESN t'a vendu « 2 jours de présentiel / 3 jours de télétravail ». Tu arrives le 1er jour chez le client : « Ah non, ici c'est 1 seul jour de remote par semaine, l'ESN le savait très bien ! »",
+        yes: {
+          label: "Subir les 4 jours de bureau en silence",
+          tjm: -40,
+          dignity: -30,
+          outcome: "Arnaque au télétravail 🚇",
+          feedback: "Le commercial te répond par SMS : « Ah mince, j'avais mal compris 😅 ». Ton pass Navigo chauffe à blanc."
+        },
+        no: {
+          label: "Imposer tes 3j de remote ou plier bagage",
+          tjm: +15,
+          dignity: +25,
+          outcome: "Contrat respecté de force 🏠",
+          feedback: "Devant la menace d'un départ au Jour 1, le client et l'ESN s'écharpent par téléphone et valident ton télétravail par dérogation."
+        }
+      },
+      {
+        realStory: true,
+        q: "Pour valider ta mission, tu dois passer un test technique évalué par le « Lead Dev » de l'équipe... qui a 7 ans d'expérience de moins que toi et te corrige avec morgue.",
+        yes: {
+          label: "Le laisser t'expliquer les boucles for",
+          tjm: 0,
+          dignity: -25,
+          outcome: "Humilité forcée 👶",
+          feedback: "Tu codais déjà en prod quand il passait son brevet des collèges, mais tu souris pendant qu'il critique le nom de tes variables."
+        },
+        no: {
+          label: "Lui faire un cours magistral d'architecture",
+          tjm: +35,
+          dignity: +20,
+          outcome: "Inversion des rôles 🎓",
+          feedback: "Au bout de 10 minutes, c'est lui qui prend des notes sur un calepin. Le client demande à te nommer Tech Lead à sa place."
+        }
+      },
+      {
+        realStory: true,
+        q: "Tu remplaces au pied levé un dev qui a claqué la porte. L'ESN te dit : « Le dev précédent devait offrir 2 jours gratuits au client mais n'en a fait qu'un, tu peux offrir ton 1er jour gratuitement pour éponger sa dette ? »",
+        yes: {
+          label: "Payer la dette d'un inconnu",
+          tjm: -70,
+          dignity: -35,
+          outcome: "Solidarité de galérien ⛓️",
+          feedback: "Tu travailles gratuitement pour rembourser le geste commercial promis par l'ESN sur le dos de ton prédécesseur. Du grand art."
+        },
+        no: {
+          label: "« Prélevez-le sur le salaire du commercial ! »",
+          tjm: +20,
+          dignity: +20,
+          outcome: "Chacun sa comptabilité 🧮",
+          feedback: "Le commercial tente de t'expliquer que 'c'est gagnant-gagnant', puis abandonne devant l'absurdité cosmique de sa demande."
+        }
+      },
+      {
+        realStory: true,
+        q: "Le commercial te propose une mission de 2 ans à 300€/j de TJM et te dit très sérieusement les yeux dans les yeux : « C'est mal payé, mais c'est mal payé longtemps ! »",
+        yes: {
+          label: "Signer pour la « sécurité de la misère »",
+          tjm: -220,
+          dignity: -40,
+          outcome: "Pauvre mais sur la durée 📉",
+          feedback: "Pendant 24 mois, tu touches un demi-TJM pendant que le commercial encaisse sa rente mensuelle en buvant des Spritz."
+        },
+        no: {
+          label: "Préférer être bien payé tout court",
+          tjm: +30,
+          dignity: +20,
+          outcome: "Punchline refusée 🛑",
+          feedback: "Tu lui proposes d'encadrer sa citation en lettres d'or au-dessus de la machine à café de l'agence."
+        }
+      },
+      {
+        realStory: true,
+        q: "Client « Agile » : 0 réunion en 1 an, pas d'accès au board Jira, tickets au compte-goutte. Tu dois pointer chaque tâche au quart d'heure près en te justifiant, avec interdiction de pointer les points métier !",
+        yes: {
+          label: "Fliquer tes propres quarts d'heure",
+          tjm: -50,
+          dignity: -35,
+          outcome: "Taylorisme numérique ⏱️",
+          feedback: "Tu passes 45 minutes non facturées chaque soir à justifier pourquoi le ticket #402 a pris 1h15 au lieu de 1h00."
+        },
+        no: {
+          label: "Facturer au forfait journalier point barre",
+          tjm: +25,
+          dignity: +20,
+          outcome: "Forfait jour indivisible 🛡️",
+          feedback: "Tu rappelles qu'un freelance en régie facture à la journée et que les réunions métier ne se font pas sur ton temps libre."
+        }
+      },
+      {
+        realStory: true,
+        q: "Les « specs » du client : un Excel de 3 lignes et 4 captures d'écran bricolées sous Paint. Zéro doc. Tu analyses l'existant et écris une doc propre pour éviter les régressions : le client t'engueule !",
+        yes: {
+          label: "S'excuser d'avoir travaillé proprement",
+          tjm: -30,
+          dignity: -30,
+          outcome: "Pisseur de code sans cerveau 🎨",
+          feedback: "« On ne vous paie pas à documenter mais à coder ! » Deux semaines plus tard, tout plante en prod et on t'accuse quand même."
+        },
+        no: {
+          label: "Facturer l'audit + refuser de coder à l'aveugle",
+          tjm: +40,
+          dignity: +25,
+          outcome: "Artisan du logiciel 📐",
+          feedback: "Tu refuses de toucher au plat de spaghettis sans cadrage écrit. Le directeur technique finit par te donner raison."
+        }
+      },
+      {
+        realStory: true,
+        q: "Tu te plains auprès de ton ESN de l'ambiance toxique et des réflexions humiliantes du client. Ton manager ESN fait l'autruche : « Surtout ne dis rien, c'est le client, il ne faut pas le froisser ! »",
+        yes: {
+          label: "Courber l'échine pour sauver la marge ESN",
+          tjm: -20,
+          dignity: -35,
+          outcome: "Politique de l'autruche 🙈",
+          feedback: "Pour ton ESN, la relation commerciale passe toujours avant ta santé mentale. Tu encaisses en silence."
+        },
+        no: {
+          label: "Poser ton préavis de fin de mission sur-le-champ",
+          tjm: +20,
+          dignity: +30,
+          outcome: "Sauvetage d'honneur 🦅",
+          feedback: "Quand le commercial comprend qu'il va perdre sa marge, il se réveille soudainement mais il est déjà trop tard : tu es libre."
+        }
+      },
+      {
+        realStory: true,
+        q: "1er jour chez le client : pas un bonjour, un collègue te refile son dev en plan, et à 11h le client t'engueule parce que tu n'as pas fait le monitoring des logs du matin... dont personne ne t'avait jamais parlé !",
+        yes: {
+          label: "Encaisser l'engueulade au Jour 1",
+          tjm: -30,
+          dignity: -35,
+          outcome: "Onboarding de l'enfer 🔥",
+          feedback: "Il fallait apparemment deviner par télépathie l'URL Kibana avant même d'avoir reçu tes identifiants Active Directory."
+        },
+        no: {
+          label: "Remettre les pendules à l'heure dès 11h02",
+          tjm: +15,
+          dignity: +25,
+          outcome: "Limites posées au Jour 1 ⚡",
+          feedback: "Tu lui demandes calmement s'il compte t'envoyer les accès avant de crier ou s'il préfère que tu lises les logs dans le marc de café."
+        }
+      },
+      {
+        realStory: true,
+        q: "Le client exige du présentiel « pour l'esprit de groupe et la cohésion ». Sur place : tout le plateau a un casque antibruit vissé sur la tête et les réunions se font sur Zoom entre voisins de bureau.",
+        yes: {
+          label: "Acheter un Sony XM5 et faire pareil",
+          tjm: 0,
+          dignity: -20,
+          outcome: "Open-space silencieux sur Zoom 🎧",
+          feedback: "Tu viens de faire 1h15 de RER pour parler dans un micro à un collègue assis à 1m80 de toi qui te répond dans le chat Teams."
+        },
+        no: {
+          label: "Basculer en télétravail sauvage le lendemain",
+          tjm: +10,
+          dignity: +20,
+          outcome: "Fantôme du plateau 👻",
+          feedback: "Comme tout le monde se parle sur Zoom avec un fond flouté, il a fallu 3 semaines au manager pour remarquer que tu étais dans ton salon."
+        }
+      },
+      {
+        realStory: true,
+        q: "Startup cliente qui ne paie aucune facture à ton ESN pendant 6 mois. Engueulade des directeurs sur place, ordres contradictoires chaque soir... À l'entretien annuel, l'ESN te refuse toute augmentation : « Le client ne nous a pas encore payés ! »",
+        yes: {
+          label: "Accepter 0% d'augmentation (double peine)",
+          tjm: -80,
+          dignity: -35,
+          outcome: "Assureur-crédit gratuit de l'ESN 📉",
+          feedback: "Tu as fait le boulot pendant 6 mois dans le chaos total, et c'est toi qui finances le défaut de paiement du client !"
+        },
+        no: {
+          label: "« Vos impayés clients ne sont pas mon problème »",
+          tjm: +50,
+          dignity: +25,
+          outcome: "Risque commercial assumé par l'ESN ⚖️",
+          feedback: "Tu leur rappelles pourquoi ils prennent une marge commerciale : absorber le risque client. Tu obtiens ta revalorisation."
+        }
+      },
+      {
+        realStory: true,
+        q: "En entretien ESN, tu précises clairement : « Je ne fais presque pas de JavaScript et je déteste ça ». Le lendemain, tu vois le CV envoyé au client : « Développeur JavaScript Confirmé » !",
+        yes: {
+          label: "Apprendre React dans le train avant le RDV",
+          tjm: -30,
+          dignity: -30,
+          outcome: "Forçat du `undefined is not a function` 🕸️",
+          feedback: "Te voilà parti pour 18 mois de CSS et de closures JS alors que tu voulais faire du back-end."
+        },
+        no: {
+          label: "Forcer le commercial à renvoyer ton vrai profil",
+          tjm: +15,
+          dignity: +20,
+          outcome: "Fini le travestissement de CV 🎭",
+          feedback: "Le commercial soupire qu'« avec un peu de bonne volonté, tout le monde aime le JS », mais retire le mensonge."
+        }
+      },
+      {
+        realStory: true,
+        q: "Pour gagner un appel d'offres, l'ESN a envoyé 5 CV bidons d'experts inventés de toutes pièces. Le contrat signé, les « experts » ne sont soudainement « plus disponibles » et on t'envoie seul à leur place !",
+        yes: {
+          label: "Remplacer les 5 experts imaginaires",
+          tjm: -60,
+          dignity: -35,
+          outcome: "Bouchon de propale mensongère 🍾",
+          feedback: "Le client s'attendait à une squad de 5 seniors, il te voit débarquer tout seul avec ton sac à dos Eastpak."
+        },
+        no: {
+          label: "Exiger le TJM d'un vrai Principal Architect",
+          tjm: +100,
+          dignity: +20,
+          outcome: "Hold-up inversé 💰",
+          feedback: "L'ESN ayant déjà signé le contrat avec pénalités de retard, elle est obligée d'aligner les billets pour que tu sauves les meubles."
+        }
+      },
+      {
+        realStory: true,
+        q: "RDV client (le commercial « n'a pas pu venir »). Le client te parle d'une techno critique inconnue et te tend une feuille : « C'est bien votre CV ça ? ». C'est ton nom, mais un CV 100% trafiqué par l'ESN !",
+        yes: {
+          label: "Jouer le jeu du faux CV en transpirant",
+          tjm: +20,
+          dignity: -45,
+          outcome: "Imposteur malgré toi 🤡",
+          feedback: "Tu tentes de bluffer sur une techno dont tu ignores même comment elle s'épelle. Tes mains tremblent sur la tasse de café."
+        },
+        no: {
+          label: "Sortir ton VRAI CV : « C'est mon nom, pas mon CV ! »",
+          tjm: 0,
+          dignity: +40,
+          instantDeathProb: 1.0,
+          deathReason: "FIN DE RDV SUR LE CHAMP (100% VÉCU) : Tu sors la copie papier de ton vrai CV. Le client et toi êtes désolés tous les deux de la supercherie de l'ESN. L'entretien s'arrête là, mais ta dignité est légendaire.",
+          outcome: "Vérité explosive devant le client 💣",
+          feedback: "Le client découvre en direct le faux grossier fabriqué par le commercial absent. Vous vous serrez la main, tous les deux consternés."
+        }
+      },
+      {
+        realStory: true,
+        q: "Tu es en intercontrat. Pour t'éviter un licenciement coûteux et te pousser à démissionner, l'ESN active ta clause de mobilité et t'envoie un ordre de mission à 2h15 de route de chez toi.",
+        yes: {
+          label: "Démissionner comme ils l'espèrent",
+          tjm: -90,
+          dignity: -30,
+          outcome: "Démission forcée gratuite 🏳️",
+          feedback: "L'ESN économise tes indemnités de départ et sabre le champagne RH."
+        },
+        no: {
+          label: "Refuser la manœuvre et exiger une rupture payée",
+          tjm: +60,
+          dignity: +25,
+          outcome: "Prud'hommes en embuscade ⚖️",
+          feedback: "Tu pointes l'abus manifeste de la clause de mobilité et le délit de marchandage : l'ESN signe ton chèque de départ sans broncher."
+        }
       }
+    ];
+
+    // --- PUNCHLINES DE GHOSTING ALÉATOIRES ---
+    const GHOST_REASONS = [
+      "GHOSTÉ PAR L'ESN : Le commercial t'a dit « Je reviens vers toi d'ici vendredi sans faute »... C'était il y a 8 mois.",
+      "REMPLACÉ AU PIED LEVÉ : Tu as trop dit non. Le BM a staffé un junior sorti de bootcamp à 340€/j qu'il a vendu comme 'Lead Architect'.",
+      "BLACKLISTÉ DU CRM : Ton profil a été tagué « Trop exigeant / Pas assez corporate » dans le logiciel de l'agence.",
+      "SILENCE RADIO TOTAL : Le commercial a coupé tout contact et t'a bloqué sur LinkedIn pour 'manque de souplesse commerciale'.",
+      "MISSION ATTRIBUÉE À UN AUTRE : Pendant que tu négociais, un autre freelance a accepté de baisser son TJM de 120€ avec le sourire."
     ];
 
     // --- ÉTAT DU JEU ---
@@ -878,6 +1268,8 @@
       currentQuestionIndex: 0,
       tjm: 600,
       dignity: 100,
+      consecutiveNo: 0,
+      totalNo: 0,
       isGameOver: false,
       gameOverReason: "",
       questions: [],
@@ -885,11 +1277,21 @@
       difficulty: 'junior'
     };
 
+    // Calcule la probabilité de Ghosting si le joueur répond NON à la question courante
+    function getNextNoGhostProb() {
+      const q = state.questions[state.currentQuestionIndex];
+      const baseDynamicProb = Math.min(0.85, 0.12 + state.consecutiveNo * 0.22 + state.totalNo * 0.04);
+      const questionSpecificProb = (q && q.no && q.no.instantDeathProb) ? q.no.instantDeathProb : 0;
+      return Math.max(baseDynamicProb, questionSpecificProb);
+    }
+
     // --- DÉMARRAGE DU JEU ---
     function startGame(numQuestions, diffKey) {
       state.totalQuestions = numQuestions;
       state.currentQuestionIndex = 0;
       state.dignity = 100;
+      state.consecutiveNo = 0;
+      state.totalNo = 0;
       state.isGameOver = false;
       state.gameOverReason = "";
       state.awaitingNext = false;
@@ -915,8 +1317,8 @@
       document.getElementById('screen-game').classList.remove('hidden');
       document.getElementById('screen-game').classList.add('flex');
 
-      updateUI();
       renderQuestion();
+      updateUI();
     }
 
     // --- AFFICHAGE DE LA QUESTION COURANTE ---
@@ -958,6 +1360,9 @@
       // Update indicateur
       document.getElementById('step-indicator').textContent = `Question ${state.currentQuestionIndex + 1}/${state.totalQuestions}`;
 
+      // Mise à jour de la jauge de risque de ghosting pour cette question
+      updateUI();
+
       // Animation subtile d'apparition de carte
       const card = document.getElementById('question-card');
       card.classList.remove('scale-95');
@@ -974,10 +1379,21 @@
       let tjmDelta = outcome.tjm || 0;
       let dignityDelta = outcome.dignity || 0;
 
-      // Gestion d'un éventuel ghosting / fin abrupte
+      // Calcul du risque de Ghosting (progressif si NON + éventuel piège spécifique sur OUI ou NON)
       let ghosted = false;
-      if (outcome.instantDeathProb && Math.random() < outcome.instantDeathProb) {
-        ghosted = true;
+      if (!choseYes) {
+        const effectiveNoProb = getNextNoGhostProb();
+        state.consecutiveNo++;
+        state.totalNo++;
+        if (Math.random() < effectiveNoProb) {
+          ghosted = true;
+        }
+      } else {
+        // Dire OUI calme le commercial (réinitialise la série de refus consécutifs)
+        state.consecutiveNo = 0;
+        if (outcome.instantDeathProb && Math.random() < outcome.instantDeathProb) {
+          ghosted = true;
+        }
       }
 
       state.tjm += tjmDelta;
@@ -1004,7 +1420,8 @@
       // Vérification des conditions critiques de Game Over
       if (ghosted) {
         state.isGameOver = true;
-        state.gameOverReason = outcome.deathReason || "GHOSTÉ PAR L'ESN : Le commercial a coupé tout contact. Ton CV a été jeté dans la corbeille pour 'manque de flexibilité commerciale'.";
+        const randomGhostMsg = GHOST_REASONS[Math.floor(Math.random() * GHOST_REASONS.length)];
+        state.gameOverReason = outcome.deathReason || randomGhostMsg;
       } else if (state.dignity <= 0) {
         state.isGameOver = true;
         state.gameOverReason = "BURNOUT INTÉGRAL : Dignité tombée à zéro. Tu as fondu en larmes en pleine réunion Teams de cadrage.";
@@ -1065,6 +1482,27 @@
         bar.className = "h-full bg-amber-400 transition-all duration-300 rounded-sm";
       } else {
         bar.className = "h-full bg-emerald-400 transition-all duration-300 rounded-sm";
+      }
+
+      // Indicateur Risque de Ghosting (Patience du BM)
+      const ghostStatusEl = document.getElementById('stat-ghost-status');
+      const ghostProbEl = document.getElementById('stat-ghost-prob');
+      if (ghostStatusEl && ghostProbEl) {
+        const probPct = Math.round(getNextNoGhostProb() * 100);
+        ghostProbEl.textContent = `${probPct}%`;
+        if (probPct >= 70) {
+          ghostStatusEl.textContent = "🔴 Doigt sur 'Bloquer'";
+          ghostProbEl.className = "font-mono-code font-black text-xs px-2 py-0.5 border-2 border-black rounded bg-rose-400 text-black";
+        } else if (probPct >= 45) {
+          ghostStatusEl.textContent = "🟠 Ouvre le CV d'un junior";
+          ghostProbEl.className = "font-mono-code font-black text-xs px-2 py-0.5 border-2 border-black rounded bg-amber-300 text-black";
+        } else if (probPct >= 25) {
+          ghostStatusEl.textContent = "🟡 Sourire crispé";
+          ghostProbEl.className = "font-mono-code font-black text-xs px-2 py-0.5 border-2 border-black rounded bg-yellow-200 text-black";
+        } else {
+          ghostStatusEl.textContent = "🟢 Calme";
+          ghostProbEl.className = "font-mono-code font-black text-xs px-2 py-0.5 border-2 border-black rounded bg-emerald-200 text-black";
+        }
       }
     }
 
