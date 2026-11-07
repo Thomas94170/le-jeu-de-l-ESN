@@ -136,7 +136,7 @@
         <button onclick="startGame(20, 'vecu')" class="w-full text-left border-4 border-black bg-[#fef08a] p-4 shadow-brutal hover:bg-yellow-300 transition active:translate-x-1 active:translate-y-1 group rounded-lg">
           <div class="flex justify-between items-center">
             <div>
-              <span class="text-xs bg-black text-white border-2 border-black font-mono-code font-bold px-2 py-0.5 rounded">100% VÉCU (20 sur 41 anecdotes)</span>
+              <span class="text-xs bg-black text-white border-2 border-black font-mono-code font-bold px-2 py-0.5 rounded">100% VÉCU (20 sur 53 anecdotes)</span>
               <h3 class="font-bold text-lg mt-1 group-hover:text-black">Le Musée des Horreurs ESN</h3>
               <p class="text-xs text-slate-700">Vibecoder, 450€ vs 750€, CV trafiqué, 300€/j « mal payé longtemps » et ghosting sauvage.</p>
             </div>
@@ -1305,6 +1305,224 @@
           dignity: +25,
           outcome: "Taxe d'amnésie appliquée 📈",
           feedback: "Tu lui annonces que ton TJM a pris +100€ depuis son dernier silence radio. Aux abois, il est obligé d'accepter tes conditions."
+        }
+      },
+      {
+        realStory: true,
+        q: "Ton TJM est de 520€. Le recruteur te jure que « le client plafonne strictement à 450€ ». Une fois en poste, un collègue te révèle que le client paie en réalité 600€/j et que l'ESN garde les 150€ d'écart !",
+        yes: {
+          label: "Avaler ta salive et rester à 450€",
+          tjm: -70,
+          dignity: -35,
+          outcome: "Plafond de verre imaginaire 🤡",
+          feedback: "Le fameux 'plafond de la grille achat' n'existait que dans le PowerPoint du commercial pour tripler son bonus trimestriel."
+        },
+        no: {
+          label: "Afficher le vrai tarif devant le client et exiger tes 520€",
+          tjm: +70,
+          dignity: +25,
+          outcome: "Mensonge démasqué en direct 🎯",
+          feedback: "Le client découvre que l'ESN te pressait comme un citron et impose au commercial de te reverser tes 520€/j immédiatement."
+        }
+      },
+      {
+        realStory: true,
+        q: "1er échange : accord à 500€/j. Après 3 entretiens clients réussis où tu as investi des heures, l'ESN t'appelle : « Il faut faire un effort à 440€ sinon on perd la mission ! » (misant sur ta flemme de repartir de zéro).",
+        yes: {
+          label: "Céder par fatigue d'avoir passé 3 entretiens",
+          tjm: -60,
+          dignity: -30,
+          outcome: "Biais des coûts irrécupérables 🎣",
+          feedback: "C'est exactement sur cette lassitude psychologique que repose 80% de leur modèle économique."
+        },
+        no: {
+          label: "« Tant pis, on annule tout ! » (coup de poker)",
+          tjm: +20,
+          dignity: +25,
+          outcome: "Le commercial cède en 30 secondes 🃏",
+          feedback: "Lui aussi a investi 2 semaines et ne veut surtout pas annoncer au client que son candidat favori refuse : tes 500€ sont maintenus !"
+        }
+      },
+      {
+        realStory: true,
+        q: "L'ESN t'annonce fièrement : « Chez nous, transparence totale, on ne prend que 10% de marge ! ». En arrivant, tu découvres que tu passes par 3 intermédiaires en cascade qui ponctionnent 30% au total.",
+        yes: {
+          label: "Nourrir la chaîne alimentaire des 3 intermédiaires",
+          tjm: -80,
+          dignity: -30,
+          outcome: "Poupées russes de la régie 🪆",
+          feedback: "ESN de rang 3 → ESN de rang 2 → Cabinet référencé → Client final. Trois commerciaux mangent des sushis sur chaque ligne de code que tu écris."
+        },
+        no: {
+          label: "Passer directement par l'ESN de rang 1 référencée",
+          tjm: +65,
+          dignity: +20,
+          outcome: "Désintermédiation chirurgicale ✂️",
+          feedback: "Tu supprimes deux parasites dans la chaîne et récupères instantanément leur marge sur ton TJM."
+        }
+      },
+      {
+        realStory: true,
+        q: "Au bout de 6 mois, le client est ravi et reconduit ta mission au même tarif. Pourtant, ton ESN t'appelle la mine grave : « Le client renégocie dur les budgets, on doit baisser ton TJM de 45€ pour te renouveler... »",
+        yes: {
+          label: "Croire au mensonge et signer l'avenant à la baisse",
+          tjm: -45,
+          dignity: -30,
+          outcome: "Récompensé par une baisse de salaire 📉",
+          feedback: "Plus tu travailles bien, moins tu gagnes ! Le client n'avait strictement rien demandé, l'ESN a juste augmenté sa marge en douce."
+        },
+        no: {
+          label: "Vérifier directement auprès du manager client",
+          tjm: +30,
+          dignity: +25,
+          outcome: "Arnaque au renouvellement déjouée 🛡️",
+          feedback: "Le manager client tombe des nues : « Mais non, on n'a jamais baissé le budget ! ». Le commercial prétexte un 'quiproquo avec la compta'."
+        }
+      },
+      {
+        realStory: true,
+        q: "En plein entretien client, tu découvres que le recruteur a « optimisé » ton CV en remplaçant tes 6 mois de React/K8s par « 5 ans d'expertise Kubernetes & React en prod ». Tu passes pour un mythomane devant le Tech Lead.",
+        yes: {
+          label: "Tenter de broder sur les Operators Kubernetes",
+          tjm: -30,
+          dignity: -35,
+          outcome: "Grillé en 2 questions techniques 🔥",
+          feedback: "Le Tech Lead te demande comment tu gères le réseau CNI Cilium en multi-cluster. Tu fixes le plafond en silence pendant 40 secondes."
+        },
+        no: {
+          label: "Balancer le recruteur : « J'ai 6 mois d'XP, l'ESN a trafiqué mon CV »",
+          tjm: +15,
+          dignity: +25,
+          outcome: "Franchise salvatrice 🤝",
+          feedback: "Le Tech Lead soupire : « C'est la 4e fois ce mois-ci avec cette ESN... ». Il apprécie ton honnêteté et t'embauche sur ton vrai niveau."
+        }
+      },
+      {
+        realStory: true,
+        q: "« Tu pourras apprendre Kafka sur le tas ce week-end, le client ne vérifiera pas ! » Lundi matin : tu arrives seul face à la DSI qui attend un Expert Senior pour sauver un cluster Kafka en feu.",
+        yes: {
+          label: "Ouvrir 'Kafka for Beginners' sur Udemy en cachette",
+          tjm: -40,
+          dignity: -35,
+          outcome: "Syndrome de l'imposteur stade terminal 🚒",
+          feedback: "Tu perds 4kg de sueur par jour pendant que 12 millions de messages s'empilent dans la Dead Letter Queue."
+        },
+        no: {
+          label: "Stopper la mascarade avant le crash de prod",
+          tjm: +10,
+          dignity: +20,
+          outcome: "Catastrophe industrielle évitée 🛑",
+          feedback: "Tu recadres le périmètre dès le premier matin sur ce que tu maîtrises vraiment. Le client remercie ton professionnalisme."
+        }
+      },
+      {
+        realStory: true,
+        q: "En entretien : on te vend de l'architecture micro-services From Scratch. Jour 1 sur place : on te donne un ticket de TMA corrective et du support N3 sur un monolithe legacy de 2008 sans aucun test.",
+        yes: {
+          label: "Accepter de faire du support N3 et du débug archéologique",
+          tjm: -50,
+          dignity: -35,
+          outcome: "Archéologue de la TMA 🏺",
+          feedback: "Ton quotidien consiste désormais à relancer un serveur Tomcat récalcitrant et à lire des fichiers XML de 14 000 lignes."
+        },
+        no: {
+          label: "Invoquer la fiche de mission ou quitter le navire",
+          tjm: +25,
+          dignity: +25,
+          outcome: "Refus du Bait & Switch technique ⚡",
+          feedback: "Pour ne pas te perdre dès la première semaine, le client te bascule enfin sur la vraie équipe produit."
+        }
+      },
+      {
+        realStory: true,
+        q: "Une ESN a « pushé » ton CV sans ton accord à 10 clients. Résultat : un client reçoit ton CV deux fois le même matin via deux ESN différentes à deux TJM différents, ce qui te grille totalement !",
+        yes: {
+          label: "Laisser les deux ESN se battre sur ton dos",
+          tjm: -70,
+          dignity: -30,
+          instantDeathProb: 0.75,
+          deathReason: "GRILLÉ CHEZ LE CLIENT : Recevant ton CV en doublon à 580€ et 720€, le service achats du client a jeté les deux dossiers à la poubelle par principe.",
+          outcome: "Dommage collatéral du Push CV 💥",
+          feedback: "Les deux commerciaux s'accusent mutuellement et le client annule ta candidature pour éviter les litiges juridiques."
+        },
+        no: {
+          label: "Exiger un mail d'autorisation exclusif par client (RGPD)",
+          tjm: +30,
+          dignity: +20,
+          outcome: "Contrôle total de ton CV 🔒",
+          feedback: "Tu interdis tout envoi à l'aveugle et désignes toi-même au client l'unique intermédiaire autorisé à te représenter."
+        }
+      },
+      {
+        realStory: true,
+        q: "Avant la signature : le commercial te répondait en 12 secondes même à 22h. Depuis que tu as un retard de paiement de 3 semaines et un litige avec le client : silence radio absolu, il est 'en séminaire'.",
+        yes: {
+          label: "Relancer poliment par mail en attendant qu'il rentre",
+          tjm: -40,
+          dignity: -25,
+          outcome: "Fantôme du service après-vente 👻",
+          feedback: "Sur LinkedIn, tu vois pourtant qu'il poste des selfies au babyfoot toutes les deux heures."
+        },
+        no: {
+          label: "Mettre le client et la direction financière en copie : 'Arrêt de prestation demain'",
+          tjm: +20,
+          dignity: +25,
+          outcome: "Résurrection miraculeuse du commercial 📞",
+          feedback: "Record mondial battu : il te rappelle en 9 secondes chrono depuis son 'séminaire' et débloque ton virement dans l'heure."
+        }
+      },
+      {
+        realStory: true,
+        q: "L'ESN t'impose un délai de paiement à « 60 jours fin de mois » sur ton contrat, alors que tu découvres que le client final les paie rubis sur l'ongle à 30 jours nets. Tu finances leur trésorerie !",
+        yes: {
+          label: "Faire crédit gratuitement à l'ESN pendant 45 jours",
+          tjm: -40,
+          dignity: -25,
+          outcome: "Banquier bénévole de l'ESN 🏦",
+          feedback: "Ton argent travaille tranquillement sur le compte rémunéré de l'ESN pendant que tu paies ton URSSAF en avance."
+        },
+        no: {
+          label: "Imposer 30 jours nets ou paiement comptant avec 0% d'escompte",
+          tjm: +25,
+          dignity: +20,
+          outcome: "Trésorerie saine 💶",
+          feedback: "Tu refuses de jouer le rôle de la Banque Centrale Européenne pour leur BFR. Le contrat passe à 30 jours."
+        }
+      },
+      {
+        realStory: true,
+        q: "Vendredi 18h15, coup de pression du commercial : « Le client veut te voir, mais j'ai 3 autres candidats prêts à signer moins cher : il me faut ton Go définitif ce soir avant 19h ! »",
+        yes: {
+          label: "Céder à la panique et signer à tarif bradé",
+          tjm: -80,
+          dignity: -30,
+          outcome: "Piège du faux compte à rebours ⏳",
+          feedback: "Il n'y avait aucun autre candidat : tu étais le seul profil disponible sur le marché, mais tu viens de brader ton TJM pour rien."
+        },
+        no: {
+          label: "« Prenez l'un des 3 autres alors, bon week-end ! »",
+          tjm: +45,
+          dignity: +25,
+          outcome: "Bluff éventré 🎯",
+          feedback: "Lundi matin 9h02 : « Bonne nouvelle, les 3 autres se sont désistés, le client te prend à ton tarif ! » Comme par hasard."
+        }
+      },
+      {
+        realStory: true,
+        q: "En lisant la page 14 du contrat en police 6, tu vois une clause de non-concurrence et non-sollicitation t'interdisant de travailler avec ce client (et ses 40 filiales) pendant 24 mois après la mission !",
+        yes: {
+          label: "Signer sans faire rayer la clause",
+          tjm: -50,
+          dignity: -30,
+          outcome: "Menotté pour 2 ans 🔒",
+          feedback: "À la fin de la mission, le client veut t'internaliser ou passer en direct : impossible sans payer 50 000€ de rançon à l'ESN."
+        },
+        no: {
+          label: "Rayer la clause ou la limiter à 3 mois sur le seul service concerné",
+          tjm: +35,
+          dignity: +25,
+          outcome: "Liberté contractuelle sauvée 🗽",
+          feedback: "Le service juridique tente d'argumenter que 'c'est un contrat-type non modifiable', puis la supprime en deux clics Word."
         }
       }
     ];
