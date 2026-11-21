@@ -136,7 +136,7 @@
         <button onclick="startGame(20, 'vecu')" class="w-full text-left border-4 border-black bg-[#fef08a] p-4 shadow-brutal hover:bg-yellow-300 transition active:translate-x-1 active:translate-y-1 group rounded-lg">
           <div class="flex justify-between items-center">
             <div>
-              <span class="text-xs bg-black text-white border-2 border-black font-mono-code font-bold px-2 py-0.5 rounded">100% VÉCU (20 sur 53 anecdotes)</span>
+              <span class="text-xs bg-black text-white border-2 border-black font-mono-code font-bold px-2 py-0.5 rounded">100% VÉCU (20 sur 54 anecdotes)</span>
               <h3 class="font-bold text-lg mt-1 group-hover:text-black">Le Musée des Horreurs ESN</h3>
               <p class="text-xs text-slate-700">Vibecoder, 450€ vs 750€, CV trafiqué, 300€/j « mal payé longtemps » et ghosting sauvage.</p>
             </div>
@@ -1523,6 +1523,41 @@
           dignity: +25,
           outcome: "Liberté contractuelle sauvée 🗽",
           feedback: "Le service juridique tente d'argumenter que 'c'est un contrat-type non modifiable', puis la supprime en deux clics Word."
+        }
+      },
+      {
+        realStory: true,
+        q: "Le client équipe fièrement ses freelances de licences IA. Au bout de 2 mois, il reçoit la facture, trouve ça trop cher et demande à ton ESN de payer… qui te répercute aussitôt la douloureuse : « Il va falloir régler ton abonnement mensuel toi-même. »",
+        yes: {
+          label: "Accepter de payer la licence IA de ma poche",
+          tjm: -50,
+          dignity: -50,
+          outcome: "Pigeon augmenté par l'IA 🤖💸",
+          feedback: "Félicitations, tu paies maintenant un abonnement mensuel pour avoir l'honneur de coder plus vite pendant que l'ESN encaisse sa marge. Même l'IA a pitié de toi et te génère automatiquement un CV pour fuir."
+        },
+        no: {
+          label: "Refuser de payer ou exiger une refacturation au client",
+          tjm: +20,
+          dignity: +25,
+          outcome: "C'est pas OpenAI ici 🛑",
+          feedback: "Le commercial tente un « mais ça booste ta productivité ! », tu lui proposes de payer son forfait téléphone en échange. Il raccroche précipitamment."
+        }
+      },
+      {
+        q: "Une ESN te contacte pour une mission chez un client étranger « payée 6 000 dollars net par mois ! ». Tu acceptes le deal ?",
+        yes: {
+          label: "Accepter les 6 000$ sans sortir la calculette",
+          tjm: -50,
+          dignity: -20,
+          outcome: "Illusion du billet vert 💵🤡",
+          feedback: "Surprise à la première facture : tes « 6 000$ net » valent 5 980€ brut par mois, soit un majestueux TJM de 303€. Bravo l'expat' de salon : tu touches moins qu'un junior en province, mais tu peux frimer en disant que tu es payé en dollars."
+        },
+        no: {
+          label: "Faire la conversion en euros brut et calculer le vrai TJM",
+          tjm: +20,
+          dignity: +20,
+          outcome: "Arnaque au taux de change évitée 🧮",
+          feedback: "Tu rappelles au commercial que 5 980€ brut par mois fait 303€/j. Il tente de te vendre « l'expérience internationale », tu lui souhaites bon vol."
         }
       }
     ];
